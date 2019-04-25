@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="430.0" prefWidth="307.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="test.mainController">
+   <children>
+      <Button fx:id="newViaje" layoutX="26.0" layoutY="62.0" mnemonicParsing="false" onAction="#openVentanaViaje" text="Nuevo viaje" />
+      <Button layoutX="26.0" layoutY="115.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="26.0" layoutY="168.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="128.0" layoutY="115.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="26.0" layoutY="223.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>
