@@ -5,17 +5,26 @@
 */
 package test;
 
+import funciones.fn;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.*;
 
 /**
@@ -43,7 +52,12 @@ public class NuevoViajeController implements Initializable{
         tipoViaje.setItems(data);
         //
         
-        //Datos de partida
+        updateSalidaEntrada();
+       
+        
+    }
+    public void updateSalidaEntrada(){
+     //Datos de partida
         HashMap<Integer,HashMap<String,Object>> partidas = Database.consulta("SELECT * FROM lugar");        
        
         ObservableList<String> dataPartidas = FXCollections.observableArrayList();
@@ -60,16 +74,15 @@ public class NuevoViajeController implements Initializable{
         llegada.setValue(dataLlegadas.get(0));
         llegada.setItems(dataLlegadas);
         //
-        
     }
+    
     @FXML
     private void embarcar(ActionEvent event){
         
-        if(checkValueKM(kmIniciales)){
-
+        if(fn.checkINT(deformatear(kmIniciales.getText()))){
+            //mostrar una ventana de si estas seguro de los datos ingresados
             //Tendria que mostrar la ventana de viajando y pasarle todos los datos
-            // y una ventana de si estas seguro de los datos ingresados
-            
+             
         }
         else{
             //mostrar mensaje de error
@@ -77,31 +90,30 @@ public class NuevoViajeController implements Initializable{
     }
     @FXML
     private void crearDestino(ActionEvent event){
-        //mostrar la ventana de creacion de destinos
-        
-        
-        
-        //HACER ESTO
-        
+       try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("crearDestino.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+            stage.setTitle("Crear Destino");
+            stage.setScene(new Scene(root1));
+            stage.setOnCloseRequest((WindowEvent we) -> {
+                updateSalidaEntrada();
+            });
+            stage.show();
+        }
+        catch (Exception ex){
+            ex.getMessage();
+        }
         
     }
-    private boolean checkValueKM(TextField tfKM){
-        //checkear si es un numero
-        //retorna true si lo es
-        boolean valido;
-        try{
-            Integer.parseInt(tfKM.getText());
-            valido=true;
-        }
-        catch (Exception e){
-            valido=false;
-            System.out.println(e.getMessage());
-        }
-        return valido;
-    }
+   
+    
+
     @FXML
-    private void reformatear(){
-        
+    private void formatear(){
        String texto = deformatear(kmIniciales.getText());
        String nuevoFormato = "";
 
@@ -110,8 +122,7 @@ public class NuevoViajeController implements Initializable{
             if((i%3==0) && i!=texto.length()){
                 nuevoFormato+=".";
             }
-            nuevoFormato+=texto.charAt(i-1);
-            
+            nuevoFormato+=texto.charAt(i-1); 
         }
         kmIniciales.setText(nuevoFormato);
     }

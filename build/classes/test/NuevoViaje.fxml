@@ -17,7 +17,7 @@
       <Label layoutX="19.0" layoutY="171.0" text="Llegada" />
       <Label layoutX="19.0" layoutY="78.0" text="Kilometros Iniciales" />
       <Button layoutX="200.0" layoutY="209.0" mnemonicParsing="false" onAction="#embarcar" text="Embarcar" />
-      <TextField fx:id="kmIniciales" alignment="CENTER_RIGHT" layoutX="126.0" layoutY="63.0" onKeyReleased="#reformatear" prefHeight="47.0" prefWidth="196.0">
+      <TextField fx:id="kmIniciales" alignment="CENTER_RIGHT" layoutX="126.0" layoutY="63.0" onKeyReleased="#formatear" prefHeight="47.0" prefWidth="196.0">
          <font>
             <Font size="22.0" />
          </font></TextField>

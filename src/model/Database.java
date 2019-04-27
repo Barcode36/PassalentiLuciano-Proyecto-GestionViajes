@@ -59,6 +59,29 @@ public class Database {
 		}
 		return output;
 	}
+        public static void insert(String statement, Object[] vars) {
+		PreparedStatement stmt=null;
+                Connection con = startConnection();
+		try {            
+			stmt = con.prepareStatement(statement);
+			for (int i = 0; i < vars.length; i++) {
+				stmt.setObject(i+1,vars[i]);
+			}
+			stmt.execute();
+		}
+		catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+		finally {
+			try {
+                            closeConnection(con);
+			}
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
+	}
 	private static HashMap<Integer,HashMap<String,Object>> convertResultSetToHashMap(ResultSet rs) throws SQLException {
 		ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
 		HashMap<Integer,HashMap<String,Object>> map = new HashMap<Integer,HashMap<String,Object>>();
