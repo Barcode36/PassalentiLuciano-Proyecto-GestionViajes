@@ -13,7 +13,6 @@ public class Conexion {
 			String user="root";
 			String pass="";
 			con = DriverManager.getConnection(url, user, pass);
-
 		}
 		catch(Exception ex){            
 			System.out.println("Ha sido imposible crear la conexion"+ex.getMessage());

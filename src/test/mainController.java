@@ -5,6 +5,7 @@
  */
 package test;
 
+import model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +43,8 @@ public class mainController implements Initializable{
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
-            stage.setScene(new Scene(root1));    
+            stage.setTitle("Nuevo Viaje");
+            stage.setScene(new Scene(root1));   
             stage.show();
         }
         catch (Exception ex){
