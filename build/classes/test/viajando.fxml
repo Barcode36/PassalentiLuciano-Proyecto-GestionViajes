@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="313.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.ViajandoController">
+   <children>
+      <Label layoutX="38.0" layoutY="22.0" text="Timer:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="cronometro" layoutX="95.0" layoutY="15.0" text="00:00:00">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnPausa" layoutX="107.0" layoutY="54.0" mnemonicParsing="false" onAction="#pausar" text="Pausar">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="64.0" layoutY="120.0" mnemonicParsing="false" text="Cargar Combustible">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="93.0" layoutY="177.0" mnemonicParsing="false" text="Pagar Peaje">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="98.0" layoutY="257.0" mnemonicParsing="false" text="Finalizar">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Label fx:id="status" layoutX="38.0" layoutY="65.0" text="STATUS" />
+   </children>
+</AnchorPane>

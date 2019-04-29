@@ -6,13 +6,12 @@
 package test;
 
 import funciones.fn;
+import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -38,11 +36,14 @@ public class NuevoViajeController implements Initializable{
     private ComboBox<String> tipoViaje;
     @FXML
     private ComboBox<String> partida;
+    private String idPartida;
     @FXML
     private ComboBox<String> llegada;
+    private String idLlegada;
     @FXML
     private TextField kmIniciales;
-    
+    private HashMap<Integer,HashMap<String,Object>> partidas;
+    private HashMap<Integer,HashMap<String,Object>> llegadas;
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -53,36 +54,60 @@ public class NuevoViajeController implements Initializable{
         //
         
         updateSalidaEntrada();
-       
+        
         
     }
     public void updateSalidaEntrada(){
-     //Datos de partida
-        HashMap<Integer,HashMap<String,Object>> partidas = Database.consulta("SELECT * FROM lugar");        
-       
+        //Datos de partida
+        partidas = Database.consulta("SELECT * FROM lugar");
+        
         ObservableList<String> dataPartidas = FXCollections.observableArrayList();
         partidas.forEach((k,v) -> dataPartidas.add((String)v.get("ciudad")+"/"+(String)v.get("direccion")+" "+(Integer)v.get("nDireccion")));
-        partida.setValue(dataPartidas.get(0));
+        partida.setValue(dataPartidas.get(dataPartidas.size()-1));
         partida.setItems(dataPartidas);
         //
         
         //Datos de llegada
-        HashMap<Integer,HashMap<String,Object>> llegadas = Database.consulta("SELECT * FROM lugar");        
-       
+        llegadas = Database.consulta("SELECT * FROM lugar");
+        
         ObservableList<String> dataLlegadas = FXCollections.observableArrayList();
         llegadas.forEach((k,v) -> dataLlegadas.add((String)v.get("ciudad")+"/"+(String)v.get("direccion")+" "+(Integer)v.get("nDireccion")));
         llegada.setValue(dataLlegadas.get(0));
         llegada.setItems(dataLlegadas);
         //
     }
-    
     @FXML
     private void embarcar(ActionEvent event){
         
         if(fn.checkINT(deformatear(kmIniciales.getText()))){
-            //mostrar una ventana de si estas seguro de los datos ingresados
-            //Tendria que mostrar la ventana de viajando y pasarle todos los datos
-             
+            
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));
+                
+                Parent scene = (Parent) loader.load();
+                Stage st = new Stage();
+                
+                ViajandoController controller = loader.<ViajandoController>getController();
+                controller.loadData(new Object[]{
+                    tipoViaje.getValue(),
+                    partida.getValue(),
+                    llegada.getValue(),
+                    deformatear(kmIniciales.getText())
+                });
+                st.initModality(Modality.APPLICATION_MODAL);
+//                st.initOwner(((Node)event.getTarget()).getScene().getWindow());
+                st.setTitle("Viajando");
+                st.setScene(new Scene(scene));
+                st.show();
+                
+                Stage stage = (Stage) kmIniciales.getScene().getWindow();
+                stage.close();
+                
+            }
+            catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
         }
         else{
             //mostrar mensaje de error
@@ -90,7 +115,7 @@ public class NuevoViajeController implements Initializable{
     }
     @FXML
     private void crearDestino(ActionEvent event){
-       try{
+        try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("crearDestino.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             
@@ -109,32 +134,32 @@ public class NuevoViajeController implements Initializable{
         }
         
     }
-   
     
-
     @FXML
     private void formatear(){
-       String texto = deformatear(kmIniciales.getText());
-       String nuevoFormato = "";
-
-       int i = texto.length();
+        String texto = deformatear(kmIniciales.getText());
+        String nuevoFormato = "";
+        
+        int i = texto.length();
         for (;i > 0; i--){
             if((i%3==0) && i!=texto.length()){
                 nuevoFormato+=".";
             }
-            nuevoFormato+=texto.charAt(i-1); 
+            nuevoFormato+=texto.charAt(i-1);
         }
         kmIniciales.setText(nuevoFormato);
+        kmIniciales.positionCaret(kmIniciales.getText().length());
     }
+    
     private String deformatear(String input){
-    String output="";
-        for (int i = 0; i < input.length(); i++){
-            if(input.charAt(i)!='.'){
-                output+=input.charAt(i);
+        String output="";
+        for (int i = input.length(); i > 0; i--){
+            if(input.charAt(i-1)!='.'){
+                output+=input.charAt(i-1);
             }
         }
-
-    return output;
+        
+        return output;
     }
     
 }

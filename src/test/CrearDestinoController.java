@@ -42,7 +42,10 @@ public class CrearDestinoController implements Initializable{
     @FXML
     private void crearDestino(ActionEvent event){
         
-        if(fn.checkINT(nDireccion.getText())){
+        if(fn.checkINT(nDireccion.getText()) && !ciudad.getText().contains("/")){
+            
+            // CHECKEAR QUE NO EXISTE OTRO IGUAL EN LA BASE DE DATOS
+            
             Database.insert("INSERT INTO lugar (ciudad,direccion,nDireccion) VALUES(?,?,?)", new Object[]{ciudad.getText(),direccion.getText(),nDireccion.getText()});
 
             Stage stage = (Stage) btnAceptar.getScene().getWindow();
@@ -52,6 +55,7 @@ public class CrearDestinoController implements Initializable{
         }
         else{
             System.out.println("El numero de direccion esta mal?");
+            System.out.println("Y la cuidad no puede contener el caracter /");
         //mostrar error de que el numero de la direccion tiene que ser un numero
         }
         
