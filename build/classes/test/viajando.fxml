@@ -22,7 +22,7 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <Button layoutX="64.0" layoutY="120.0" mnemonicParsing="false" text="Cargar Combustible">
+      <Button layoutX="64.0" layoutY="120.0" mnemonicParsing="false" onAction="#mostrarCargaCombustible" text="Cargar Combustible">
          <font>
             <Font size="16.0" />
          </font>

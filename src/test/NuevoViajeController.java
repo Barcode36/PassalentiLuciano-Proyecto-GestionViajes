@@ -90,7 +90,7 @@ public class NuevoViajeController implements Initializable{
                     tipoViaje.getValue(),
                     partida.getValue(),
                     llegada.getValue(),
-                    deformatear(kmIniciales.getText())
+                    flip(deformatear(kmIniciales.getText()))
                 });
                 st.initModality(Modality.APPLICATION_MODAL);
 //                st.initOwner(((Node)event.getTarget()).getScene().getWindow());
@@ -157,6 +157,13 @@ public class NuevoViajeController implements Initializable{
             }
         }
         return output;
+    }
+    private String flip(String text){
+        String fliped="";
+        for (int i = text.length(); i > 0 ; i--){
+            fliped+=text.charAt(i-1);
+        }
+        return fliped;
     }
     
 }

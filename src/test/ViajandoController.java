@@ -11,9 +11,16 @@ import java.util.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
 FXML Controller class
@@ -32,6 +39,7 @@ public class ViajandoController implements Initializable{
     private TimerTask timerTask;
     @FXML
     private Button btnPausa;
+    private ArrayList<Object[]> gastosCombustible = new ArrayList<>();
     
     /**
     Initializes the controller class.
@@ -183,5 +191,36 @@ public class ViajandoController implements Initializable{
         }
         return ciudad;
     }
-    
+    @FXML
+    private void mostrarCargaCombustible(ActionEvent event){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cargarCombustible.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+            stage.setTitle("Cargar Combustible");
+            stage.setScene(new Scene(root1));
+            
+            stage.show();
+        }
+        catch (Exception ex){
+            ex.getMessage();
+        }
+    }
+    public void cargarDataCombustible(Object[] array){
+        
+        gastosCombustible.add(array);
+        //          {LITROS, KM, PRECIO, DATETIME};
+        
+        ////// IMPRIMIR POR CONSOLA ////////
+        for (Object obj : array){
+            if(obj!= null){
+                System.out.println(obj.toString());
+            }    
+        }
+        ////////////////
+        
+    }
 }
