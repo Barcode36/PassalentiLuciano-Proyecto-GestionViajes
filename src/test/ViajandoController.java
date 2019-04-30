@@ -115,8 +115,8 @@ public class ViajandoController implements Initializable{
         this.data[0] = data[0]; //tipo de viaje
         this.data[1] = null;    //duracion
         this.data[2] = null;    //duracion Total
-        this.data[3] = (Integer) Database.consulta("SELECT idLugar FROM lugar WHERE ciudad=? AND direccion=? AND nDireccion=?",new Object[]{decripCiudad((String)data[1]),decripDireccion((String)data[1]),decripNDireccion((String)data[1])}).get(0).get("idLugar"); //partida
-        this.data[4] = (Integer) Database.consulta("SELECT idLugar FROM lugar WHERE ciudad=? AND direccion=? AND nDireccion=?",new Object[]{decripCiudad((String)data[2]),decripDireccion((String)data[2]),decripNDireccion((String)data[2])}).get(0).get("idLugar"); //llegada
+        this.data[3] = (Integer) Database.consulta("SELECT idLugar FROM lugar WHERE ciudad=? AND direccion=? AND nDireccion=?",new Object[]{decripCiudad((String)data[1]),decripDireccion((String)data[1]),decripNDireccion((String)data[1])}).get(0).get("idLugar"); // ID partida
+        this.data[4] = (Integer) Database.consulta("SELECT idLugar FROM lugar WHERE ciudad=? AND direccion=? AND nDireccion=?",new Object[]{decripCiudad((String)data[2]),decripDireccion((String)data[2]),decripNDireccion((String)data[2])}).get(0).get("idLugar"); // ID llegada
         this.data[5] = data[3]; //kilometros iniciales
         this.data[6] = null;    //fecha de llegada
         this.data[7] = Database.consulta("SELECT NOW() as fechasalida").get(0).get("fechasalida"); //fecha-hora de salida

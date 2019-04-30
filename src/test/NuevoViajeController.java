@@ -36,10 +36,8 @@ public class NuevoViajeController implements Initializable{
     private ComboBox<String> tipoViaje;
     @FXML
     private ComboBox<String> partida;
-    private String idPartida;
     @FXML
     private ComboBox<String> llegada;
-    private String idLlegada;
     @FXML
     private TextField kmIniciales;
     private HashMap<Integer,HashMap<String,Object>> partidas;
@@ -110,7 +108,7 @@ public class NuevoViajeController implements Initializable{
             
         }
         else{
-            //mostrar mensaje de error
+            //mostrar mensaje de error QUE NO PUEDEN SER LETRAS LOS KILOMETROS
         }
     }
     @FXML
@@ -158,7 +156,6 @@ public class NuevoViajeController implements Initializable{
                 output+=input.charAt(i-1);
             }
         }
-        
         return output;
     }
     
