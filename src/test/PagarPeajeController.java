@@ -44,7 +44,7 @@ public class PagarPeajeController implements Initializable{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));
                 Parent root = loader.load();
                 ViajandoController controller = loader.<ViajandoController>getController();
-                controller.cargarDataCombustible(new Object[]{peaje.getText(), Database.consulta("SELECT NOW() FROM lugar").get(0).get("NOW()")});
+                controller.cargarDataPeaje(new Object[]{peaje.getText(), Database.consulta("SELECT NOW() FROM lugar").get(0).get("NOW()")});
                 stage.close();
             }
             catch(Exception e){

@@ -5,6 +5,8 @@ and open the template in the editor.
 */
 package test;
 
+import funciones.fn;
+import java.io.IOException;
 import model.*;
 import java.net.URL;
 import java.util.*;
@@ -39,8 +41,8 @@ public class ViajandoController implements Initializable{
     private TimerTask timerTask;
     @FXML
     private Button btnPausa;
-    private ArrayList<Object[]> gastosCombustible = new ArrayList<>();
-    private ArrayList<Object[]> peajes = new ArrayList<>();
+    private static ArrayList<Object[]> gastosCombustible = new ArrayList<Object[]>();
+    private static ArrayList<Object[]> peajes = new ArrayList<Object[]>();
     
     /**
     Initializes the controller class.
@@ -90,7 +92,7 @@ public class ViajandoController implements Initializable{
         cronometro.setText(hr+horas+":"+min+minutos+":"+seg+segundos);
     }
     @FXML
-    private void pausar(ActionEvent event){
+    private void pausar(){
         if(pausado==false){
             pausado=true;
             btnPausa.setText("Reanudar");
@@ -229,33 +231,69 @@ public class ViajandoController implements Initializable{
         }
     }
     public void cargarDataCombustible(Object[] array){
-        
         gastosCombustible.add(array);
-        //          {LITROS, KM, PRECIO, DATETIME};
+        //{LITROS, KM, PRECIO, DATETIME};
         
         ////// IMPRIMIR POR CONSOLA ////////
-        for (Object obj : array){
-            if(obj!= null){
-                System.out.println(obj.toString());
-            }    
-        }
+//        for (Object obj : array){
+//            if(obj!= null){
+//                System.out.println(obj.toString());
+//            }    
+//        }
         ////////////////
-        
     }
     public void cargarDataPeaje(Object[] array){
-        
         peajes.add(array);
         // {PRECIO, DATETIME}
-        
-        ////// IMPRIMIR POR CONSOLA ////////
-        for (Object obj : array){
-            if(obj!= null){
-                System.out.println(obj.toString());
-            }    
-        }
+
+        ///////////////IMPRIMIR/////////////
+//        System.out.println("peajes guardados: "+ peajes.size());
+//        
+//        for (int i = 0; i < this.peajes.size(); i++){
+//            for (int j = 0; j < this.peajes.get(i).length; j++){
+//                System.out.println(this.peajes.get(i)[j].toString());
+//            }
+//        }
+//        
         ////////////////
     }
     public void cancelTimer(){
         timer.cancel();
+    }
+    @FXML
+    private void finalizar(ActionEvent event){
+        //en mi mente: cuando se abra la de finalizando viaje se tendria que parar el cronometro y reanudar en el evento de close
+        
+        // pasarle la data a la ventana de finalizar viaje
+        // y abrirla, pero no cerrar esta.
+        
+        
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("finalizandoViaje.fxml"));
+                
+                Parent scene = (Parent) loader.load();
+                Stage st = new Stage();
+                pausar();
+               
+                FinalizandoViajeController controller = loader.<FinalizandoViajeController>getController();
+                controller.loadData(
+                    data,               //{tipo de viaje, Duracion(ESTA NULL), Duracion total(ESTA NULL), idSalida, idLlegada, Km Iniciales, fecha de LLegada(ESTA NULL, LO SETEA CUANDO SE FINALIZA, DATETIME de la salida)}
+                    gastosCombustible,  //{IdViaje, Litros, Km, Precio, DATETIME}
+                    peajes              //{IdViaje, Costo, DATETIME}
+                );
+                st.initModality(Modality.APPLICATION_MODAL);
+                st.setOnCloseRequest((WindowEvent we) -> {
+                    pausar();
+                });
+                st.setTitle("Finalizando Viaje");
+                st.setScene(new Scene(scene));
+                st.show();
+            }
+            catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+        
+        
     }
 }
