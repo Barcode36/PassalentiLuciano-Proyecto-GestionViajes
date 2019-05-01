@@ -93,7 +93,9 @@ public class NuevoViajeController implements Initializable{
                     flip(deformatear(kmIniciales.getText()))
                 });
                 st.initModality(Modality.APPLICATION_MODAL);
-//                st.initOwner(((Node)event.getTarget()).getScene().getWindow());
+                st.setOnCloseRequest((WindowEvent we) -> {
+                    controller.cancelTimer();
+                });
                 st.setTitle("Viajando");
                 st.setScene(new Scene(scene));
                 st.show();

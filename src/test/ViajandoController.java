@@ -243,7 +243,9 @@ public class ViajandoController implements Initializable{
         
     }
     public void cargarDataPeaje(Object[] array){
+        
         peajes.add(array);
+        // {PRECIO, DATETIME}
         
         ////// IMPRIMIR POR CONSOLA ////////
         for (Object obj : array){
@@ -252,5 +254,8 @@ public class ViajandoController implements Initializable{
             }    
         }
         ////////////////
+    }
+    public void cancelTimer(){
+        timer.cancel();
     }
 }
