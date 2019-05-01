@@ -40,6 +40,7 @@ public class ViajandoController implements Initializable{
     @FXML
     private Button btnPausa;
     private ArrayList<Object[]> gastosCombustible = new ArrayList<>();
+    private ArrayList<Object[]> peajes = new ArrayList<>();
     
     /**
     Initializes the controller class.
@@ -209,6 +210,24 @@ public class ViajandoController implements Initializable{
             ex.getMessage();
         }
     }
+    @FXML
+    private void mostrarPagarPeaje(ActionEvent event){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pagarPeaje.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
+            stage.setTitle("Pagar Peaje");
+            stage.setScene(new Scene(root1));
+            
+            stage.show();
+        }
+        catch (Exception ex){
+            ex.getMessage();
+        }
+    }
     public void cargarDataCombustible(Object[] array){
         
         gastosCombustible.add(array);
@@ -222,5 +241,16 @@ public class ViajandoController implements Initializable{
         }
         ////////////////
         
+    }
+    public void cargarDataPeaje(Object[] array){
+        peajes.add(array);
+        
+        ////// IMPRIMIR POR CONSOLA ////////
+        for (Object obj : array){
+            if(obj!= null){
+                System.out.println(obj.toString());
+            }    
+        }
+        ////////////////
     }
 }
