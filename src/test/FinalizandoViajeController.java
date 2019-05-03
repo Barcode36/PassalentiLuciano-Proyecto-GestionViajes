@@ -6,13 +6,21 @@ and open the template in the editor.
 package test;
 
 import funciones.fn;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.*;
 
 /**
@@ -73,21 +81,38 @@ public class FinalizandoViajeController implements Initializable{
         System.out.println(Integer.getInteger(kmFinales.getText()));
         
         if(fn.checkINT(kmFinales.getText())){
-            if(Integer.valueOf(kmFinales.getText()) >
-                    Integer.valueOf(datosViaje[5].toString())){
+            if(Integer.valueOf(kmFinales.getText()) > Integer.valueOf(datosViaje[5].toString())){
                 Database.insert("INSERT INTO viaje (tipo,duracion,duracionTotal,idSalida,idLlegada,kilometos,fechaLlegada,fechaSalida) VALUES(?,?,?,?,?,?,?,?)", //TODO: cambiar el nombre de kilometos a KILOMETROS EN LA BASE DE DATOS Y ACA
                         new Object[]{
-                            (String)datosViaje[0], // tipo
-                            555555,                // duracion (en segundos)
-                            555555,                // duracion total (en segundos)
+                            (String)datosViaje[0], // tipo de viaje
+                            ((Long)Database.consulta("Select TIMESTAMPDIFF(SECOND, ?, ?) as duracionTotal FROM viaje", new Object[]{datosViaje[7],Database.consulta("SELECT NOW()").get(0).get("NOW()")}).get(0).get("duracionTotal"))-(ViajandoController.getSegundos()), // duracion (en segundos)
+                            (Long)Database.consulta("Select TIMESTAMPDIFF(SECOND, ?, ?) as duracionTotal FROM viaje", new Object[]{datosViaje[7],Database.consulta("SELECT NOW()").get(0).get("NOW()")}).get(0).get("duracionTotal"),                       // duracion total (en segundos)
                             (Integer)datosViaje[3],//id de salida
                             (Integer)datosViaje[4],//id de llegada
                             (Integer.valueOf(kmFinales.getText())-(Integer.valueOf(datosViaje[5].toString()))),//kilometros recorridos
                             Database.consulta("SELECT NOW()").get(0).get("NOW()"),  //fecha de llegada
-                            datosViaje[7]
+                            datosViaje[7] //fecha de salida
                         });
                 
+                
+                
+                //CREAR LOS PEAJES Y LAS CARGAS DE COMBUSTIBLE
+                
                 //TODO: DECIR QUE FUE SUCCESSFULL Y CERRAR TODO
+                
+                
+                
+                
+                //PICKER ARCHIVO
+              // FileChooser fc = new FileChooser();
+              // fc.getExtensionFilters().add(new ExtensionFilter ("Ficheros de texto", ".txt"));
+              // File selectedFile = fc.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
+              // if(selectedFile!=null) System.out.println(selectedFile.getAbsolutePath());
+                
+                 //ALERT de creacion
+               // Alert alert = new Alert(AlertType.INFORMATION, "Se creo el viaje correctamente");
+               // alert.showAndWait();
+                
             }
             else{
                 System.out.println("Los kilometros no puden ser menores a los con que se salio");

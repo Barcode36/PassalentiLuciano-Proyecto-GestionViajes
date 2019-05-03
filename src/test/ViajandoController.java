@@ -33,7 +33,8 @@ public class ViajandoController implements Initializable{
     @FXML
     private Label status;
     private Object[] data;
-    private int segundos=50,horas=0,minutos=0;
+    private int segundos=0,horas=0,minutos=0;
+    private static Integer segundosTotales=0;
     @FXML
     private Label cronometro;
     private boolean pausado = false;
@@ -62,6 +63,7 @@ public class ViajandoController implements Initializable{
                     @Override
                     public void run() {
                         segundos++;
+                        ViajandoController.segundosTotales++;
                         actualizar();
                         artualizarCronometro();
                     }
@@ -111,6 +113,7 @@ public class ViajandoController implements Initializable{
                         @Override
                         public void run() {
                             segundos++;
+                            ViajandoController.segundosTotales++;
                             actualizar();
                             artualizarCronometro();
                         }
@@ -123,13 +126,13 @@ public class ViajandoController implements Initializable{
     public void loadData(Object[] data){
         this.data = new Object[data.length+4];
         
-        this.data[0] = data[0]; //tipo de viaje
-        this.data[1] = null;    //duracion
-        this.data[2] = null;    //duracion Total
+        this.data[0] = data[0];            //tipo de viaje
+        this.data[1] = null;               //duracion
+        this.data[2] = null;               //duracion Total
         this.data[3] = (Integer) Database.consulta("SELECT idLugar FROM lugar WHERE ciudad=? AND direccion=? AND nDireccion=?",new Object[]{decripCiudad((String)data[1]),decripDireccion((String)data[1]),decripNDireccion((String)data[1])}).get(0).get("idLugar"); // ID partida
         this.data[4] = (Integer) Database.consulta("SELECT idLugar FROM lugar WHERE ciudad=? AND direccion=? AND nDireccion=?",new Object[]{decripCiudad((String)data[2]),decripDireccion((String)data[2]),decripNDireccion((String)data[2])}).get(0).get("idLugar"); // ID llegada
-        this.data[5] = data[3]; //kilometros iniciales
-        this.data[6] = null;    //fecha de llegada
+        this.data[5] = data[3];            //kilometros iniciales
+        this.data[6] = null;               //fecha de llegada
         this.data[7] = Database.consulta("SELECT NOW() as fechasalida").get(0).get("fechasalida"); //fecha-hora de salida
         
         
@@ -259,6 +262,10 @@ public class ViajandoController implements Initializable{
     }
     public void cancelTimer(){
         timer.cancel();
+    }
+    
+    public static int getSegundos(){
+        return segundosTotales;
     }
     @FXML
     private void finalizar(ActionEvent event){
