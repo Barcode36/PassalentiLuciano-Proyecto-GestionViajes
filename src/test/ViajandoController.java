@@ -33,8 +33,8 @@ public class ViajandoController implements Initializable{
     @FXML
     private Label status;
     private Object[] data;
-    private int segundos=0,horas=0,minutos=0;
-    private static Integer segundosTotales=0;
+    private static int segundos=0,horas=0,minutos=0;
+    
     @FXML
     private Label cronometro;
     private boolean pausado = false;
@@ -63,7 +63,6 @@ public class ViajandoController implements Initializable{
                     @Override
                     public void run() {
                         segundos++;
-                        ViajandoController.segundosTotales++;
                         actualizar();
                         artualizarCronometro();
                     }
@@ -113,7 +112,7 @@ public class ViajandoController implements Initializable{
                         @Override
                         public void run() {
                             segundos++;
-                            ViajandoController.segundosTotales++;
+                            
                             actualizar();
                             artualizarCronometro();
                         }
@@ -265,15 +264,10 @@ public class ViajandoController implements Initializable{
     }
     
     public static int getSegundos(){
-        return segundosTotales;
+        return segundos+(minutos*60)+(horas*3600);
     }
     @FXML
     private void finalizar(ActionEvent event){
-        //en mi mente: cuando se abra la de finalizando viaje se tendria que parar el cronometro y reanudar en el evento de close
-        
-        // pasarle la data a la ventana de finalizar viaje
-        // y abrirla, pero no cerrar esta.
-        
         
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("finalizandoViaje.fxml"));
