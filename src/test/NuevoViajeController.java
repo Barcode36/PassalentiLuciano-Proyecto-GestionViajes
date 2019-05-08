@@ -35,9 +35,9 @@ public class NuevoViajeController implements Initializable{
     @FXML
     private ComboBox<String> tipoViaje;
     @FXML
-    private ComboBox<String> partida;
+    private ComboBox<Lugar> partida;
     @FXML
-    private ComboBox<String> llegada;
+    private ComboBox<Lugar> llegada;
     @FXML
     private TextField kmIniciales;
     private HashMap<Integer,HashMap<String,Object>> partidas;
@@ -59,20 +59,20 @@ public class NuevoViajeController implements Initializable{
         //Datos de partida
         partidas = Database.consulta("SELECT * FROM lugar");
         
-        ObservableList<String> dataPartidas = FXCollections.observableArrayList();
-        partidas.forEach((k,v) -> dataPartidas.add((String)v.get("ciudad")+"/"+(String)v.get("direccion")+" "+(Integer)v.get("nDireccion")));
-        partida.setValue(dataPartidas.get(dataPartidas.size()-1));
+        ObservableList<Lugar> dataPartidas = FXCollections.observableArrayList();
+        
+        partidas.forEach((k,v) -> dataPartidas.add(new Lugar(
+                (int)v.get("idLugar"),
+                (String)v.get("ciudad"),
+                (String)v.get("direccion"),
+                (int)v.get("nDireccion"))
+        ));
+        
         partida.setItems(dataPartidas);
-        //
+        partida.setValue(dataPartidas.get(0));
         
-        //Datos de llegada
-        llegadas = Database.consulta("SELECT * FROM lugar");
-        
-        ObservableList<String> dataLlegadas = FXCollections.observableArrayList();
-        llegadas.forEach((k,v) -> dataLlegadas.add((String)v.get("ciudad")+"/"+(String)v.get("direccion")+" "+(Integer)v.get("nDireccion")));
-        llegada.setValue(dataLlegadas.get(0));
-        llegada.setItems(dataLlegadas);
-        //
+        llegada.setItems(dataPartidas);
+        llegada.setValue(dataPartidas.get(0));
     }
     @FXML
     private void embarcar(ActionEvent event){
@@ -88,8 +88,8 @@ public class NuevoViajeController implements Initializable{
                 ViajandoController controller = loader.<ViajandoController>getController();
                 controller.loadData(new Object[]{
                     tipoViaje.getValue(),
-                    partida.getValue(),
-                    llegada.getValue(),
+                    partida.getValue().getiDlugar(),
+                    llegada.getValue().getiDlugar(),
                     flip(deformatear(kmIniciales.getText()))
                 });
                 st.initModality(Modality.APPLICATION_MODAL);

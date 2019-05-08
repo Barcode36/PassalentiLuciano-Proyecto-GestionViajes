@@ -9,13 +9,13 @@ package test;
  *
  * @author DAW
  */
-public class lugar {
-    private String iDlugar;
+public class Lugar {
+    private int iDlugar;
     private String ciudad;
     private String direccion;
     private int nDireccion;
 
-    public lugar(String iDlugar, String ciudad, String direccion, int nDireccion) {
+    public Lugar(int iDlugar, String ciudad, String direccion, int nDireccion) {
         this.iDlugar = iDlugar;
         this.ciudad = ciudad;
         this.direccion = direccion;
@@ -27,7 +27,7 @@ public class lugar {
         return ciudad + "/" + direccion +" "+ nDireccion;
     }
     
-    public String getiDlugar() {
+    public Integer getiDlugar() {
         return iDlugar;
     }
 
@@ -43,7 +43,7 @@ public class lugar {
         return nDireccion;
     }
 
-    public void setiDlugar(String iDlugar) {
+    public void setiDlugar(int iDlugar) {
         this.iDlugar = iDlugar;
     }
 
