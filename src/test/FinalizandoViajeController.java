@@ -94,11 +94,20 @@ public class FinalizandoViajeController implements Initializable{
                 
                 
                 
-                //CREAR LOS PEAJES Y LAS CARGAS DE COMBUSTIBLE
+                //CREAR LOS PEAJES
+                for (Object[] peaje : peajes) {
+                    Database.insert("INSERT INTO peaje(idViaje,costo,fecha) VALUES(?,?,?)", 
+                    new Object[]{
+                        (Integer)Database.consulta("SELECT MAX(idViaje) as ultimoID FROM viaje").get(0).get("ultimoID"), // id del ultimo viaje insertado
+                        peaje[0],   // costo
+                        peaje[1]    //DATETIME
+                    });
+                }
                 
-                //TODO: DECIR QUE FUE SUCCESSFULL Y CERRAR TODO
+               //CREAR LAS CARGAS DE COMBUSTIBLE
                 
-                
+               //TODO: DECIR QUE FUE SUCCESSFULL Y CERRAR TODO
+               //fixear el bug de la duracion total del viaje
                 
                 
                 //PICKER ARCHIVO

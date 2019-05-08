@@ -121,7 +121,6 @@ public class ViajandoController implements Initializable{
             }, 0, 1000);
         }
     }
-    
     public void loadData(Object[] data){
         this.data = new Object[data.length+4];
         
@@ -141,7 +140,6 @@ public class ViajandoController implements Initializable{
         }
         //////
     }
-   
     @FXML
     private void mostrarCargaCombustible(ActionEvent event){
         try{
@@ -208,7 +206,6 @@ public class ViajandoController implements Initializable{
     public void cancelTimer(){
         timer.cancel();
     }
-    
     public static int getSegundos(){
         return segundos+(minutos*60)+(horas*3600);
     }
@@ -240,7 +237,5 @@ public class ViajandoController implements Initializable{
                 System.out.println(ex.getMessage());
             }
             
-        
-        
     }
 }
