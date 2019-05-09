@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-05-2019 a las 23:13:39
--- Versión del servidor: 10.1.35-MariaDB
--- Versión de PHP: 7.2.9
+-- Tiempo de generación: 09-05-2019 a las 20:54:16
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -55,7 +55,9 @@ CREATE TABLE `lugar` (
 --
 
 INSERT INTO `lugar` (`idLugar`, `ciudad`, `direccion`, `nDireccion`) VALUES
-(1, 'Valencia', 'cami reial', 118);
+(1, 'Valencia', 'cami reial', 118),
+(4, 'manises', 'micasa', 123),
+(5, 'manises', 'direccion falsa ', 1999);
 
 -- --------------------------------------------------------
 
@@ -87,6 +89,20 @@ CREATE TABLE `viaje` (
   `fechaLlegada` datetime NOT NULL,
   `fechaSalida` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Disparadores `viaje`
+--
+DELIMITER $$
+CREATE TRIGGER `deletePeajeCascade` BEFORE DELETE ON `viaje` FOR EACH ROW BEGIN
+    DELETE
+FROM
+    peaje
+WHERE
+	peaje.idViaje = idViaje;
+END
+$$
+DELIMITER ;
 
 --
 -- Índices para tablas volcadas
@@ -134,19 +150,19 @@ ALTER TABLE `combustible`
 -- AUTO_INCREMENT de la tabla `lugar`
 --
 ALTER TABLE `lugar`
-  MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `peaje`
 --
 ALTER TABLE `peaje`
-  MODIFY `idPeaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPeaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `idViaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idViaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Restricciones para tablas volcadas
