@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2019 a las 20:54:16
+-- Tiempo de generación: 10-05-2019 a las 14:05:41
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -56,8 +56,7 @@ CREATE TABLE `lugar` (
 
 INSERT INTO `lugar` (`idLugar`, `ciudad`, `direccion`, `nDireccion`) VALUES
 (1, 'Valencia', 'cami reial', 118),
-(4, 'manises', 'micasa', 123),
-(5, 'manises', 'direccion falsa ', 1999);
+(4, 'manises', 'micasa', 123);
 
 -- --------------------------------------------------------
 
@@ -95,11 +94,8 @@ CREATE TABLE `viaje` (
 --
 DELIMITER $$
 CREATE TRIGGER `deletePeajeCascade` BEFORE DELETE ON `viaje` FOR EACH ROW BEGIN
-    DELETE
-FROM
-    peaje
-WHERE
-	peaje.idViaje = idViaje;
+    DELETE FROM peaje WHERE	peaje.idViaje = idViaje;
+    DELETE FROM combustible WHERE combustible.idViaje = idViaje;
 END
 $$
 DELIMITER ;
@@ -144,25 +140,25 @@ ALTER TABLE `viaje`
 -- AUTO_INCREMENT de la tabla `combustible`
 --
 ALTER TABLE `combustible`
-  MODIFY `idCombustible` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCombustible` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `lugar`
 --
 ALTER TABLE `lugar`
-  MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `peaje`
 --
 ALTER TABLE `peaje`
-  MODIFY `idPeaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPeaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `idViaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idViaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

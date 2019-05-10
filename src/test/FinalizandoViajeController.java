@@ -104,6 +104,18 @@ public class FinalizandoViajeController implements Initializable{
                     });
                 }
                 
+                
+                for (Object[] carga : combustibles) {
+                    Database.insert("INSERT INTO combustible(idViaje,litros,kilometros,precio,fecha) VALUES(?,?,?,?,?)", 
+                    new Object[]{
+                        (Integer)Database.consulta("SELECT MAX(idViaje) as ultimoID FROM viaje").get(0).get("ultimoID"), // id del ultimo viaje insertado
+                        carga[0],   // litros
+                        carga[1],   // km
+                        carga[2],   // precio
+                        carga[3]    // DATETIME
+                    });
+                }
+                
                //CREAR LAS CARGAS DE COMBUSTIBLE
                 
                //TODO: DECIR QUE FUE SUCCESSFULL Y CERRAR TODO
