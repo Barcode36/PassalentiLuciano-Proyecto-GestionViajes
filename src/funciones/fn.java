@@ -12,7 +12,7 @@ package funciones;
 public class fn{
     
     public static boolean checkINT(String s){
-        //checkear si es un numero
+        //checkea si es un numero
         //retorna true si lo es
         boolean valido;
         try{

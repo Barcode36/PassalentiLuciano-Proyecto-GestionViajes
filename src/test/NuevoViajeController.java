@@ -8,7 +8,8 @@ package test;
 import funciones.fn;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -54,7 +55,6 @@ public class NuevoViajeController implements Initializable{
         //
         
         updateSalidaEntrada();
-        
         
     }
     public void updateSalidaEntrada(){
@@ -132,7 +132,7 @@ public class NuevoViajeController implements Initializable{
             });
             stage.show();
         }
-        catch (Exception ex){
+        catch (IOException ex){
             ex.getMessage();
         }
         

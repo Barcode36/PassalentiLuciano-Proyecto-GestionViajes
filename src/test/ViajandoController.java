@@ -6,12 +6,15 @@ and open the template in the editor.
 package test;
 
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import model.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +38,6 @@ public class ViajandoController implements Initializable{
     private Label status;
     private Object[] data;
     private static int segundos=0,horas=0,minutos=0;
-    
     @FXML
     private Label cronometro;
     private boolean pausado = false;
@@ -66,7 +68,6 @@ public class ViajandoController implements Initializable{
                         segundos++;
                         actualizar();
                         artualizarCronometro();
-                        System.out.println(getSegundos());
                     }
                 });
             }
@@ -96,6 +97,12 @@ public class ViajandoController implements Initializable{
     }
     @FXML
     private void pausar(){
+        try {
+            sleep(2);
+        } 
+        catch (InterruptedException ex) {
+            System.out.println(ex.getMessage());
+        }
         if(pausado==false){
             pausado=true;
             btnPausa.setText("Reanudar");
@@ -114,7 +121,6 @@ public class ViajandoController implements Initializable{
                         @Override
                         public void run() {
                             segundos++;
-                            System.out.println(getSegundos());
                             actualizar();
                             artualizarCronometro();
                         }
@@ -181,29 +187,10 @@ public class ViajandoController implements Initializable{
     public void cargarDataCombustible(Object[] array){
         gastosCombustible.add(array);
         //{LITROS, KM, PRECIO, DATETIME};
-        
-        ////// IMPRIMIR POR CONSOLA ////////
-//        for (Object obj : array){
-//            if(obj!= null){
-//                System.out.println(obj.toString());
-//            }    
-//        }
-        ////////////////
     }
     public void cargarDataPeaje(Object[] array){
         peajes.add(array);
         // {PRECIO, DATETIME}
-
-        ///////////////IMPRIMIR/////////////
-//        System.out.println("peajes guardados: "+ peajes.size());
-//        
-//        for (int i = 0; i < this.peajes.size(); i++){
-//            for (int j = 0; j < this.peajes.get(i).length; j++){
-//                System.out.println(this.peajes.get(i)[j].toString());
-//            }
-//        }
-//        
-        ////////////////
     }
     public void cancelTimer(){
         timer.cancel();
@@ -234,6 +221,7 @@ public class ViajandoController implements Initializable{
                         Stage stage = (Stage) btnPausa.getScene().getWindow();
                         stage.close();
                     }
+                    cancelTimer();
                 });
                 st.setTitle("Finalizando Viaje");
                 st.setScene(new Scene(scene));

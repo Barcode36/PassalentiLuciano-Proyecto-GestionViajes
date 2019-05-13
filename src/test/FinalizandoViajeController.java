@@ -120,12 +120,6 @@ for (Object[] obj : peajes){
                                 carga[3]    // DATETIME
                             });
                 }
-                
-                
-
-                //fixear el bug del timer que no se cierra
-                
-                
                 //Ventana de creacion exitosa
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("viajeSuccsess.fxml"));
