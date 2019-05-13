@@ -65,6 +65,7 @@ public class ViajandoController implements Initializable{
                         segundos++;
                         actualizar();
                         artualizarCronometro();
+                        System.out.println(getSegundos());
                     }
                 });
             }
@@ -112,7 +113,7 @@ public class ViajandoController implements Initializable{
                         @Override
                         public void run() {
                             segundos++;
-                            
+                            System.out.println(getSegundos());
                             actualizar();
                             artualizarCronometro();
                         }

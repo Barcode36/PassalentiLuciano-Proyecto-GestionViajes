@@ -43,7 +43,6 @@ public class mainController implements Initializable{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             stage.setTitle("Nuevo Viaje");
-            stage.setOnCloseRequest((WindowEvent we) -> System.exit(0));
             stage.setScene(new Scene(root1));   
             stage.show();
         }
