@@ -226,8 +226,12 @@ public class ViajandoController implements Initializable{
                     peajes              //{IdViaje, Costo, DATETIME}
                 );
                 st.initModality(Modality.APPLICATION_MODAL);
-                st.setOnCloseRequest((WindowEvent we) -> {
-                    pausar();
+                st.setOnCloseRequest(WindowEvent -> {
+                    System.out.println("esta finalizado? "+controller.getFinalizado());
+                    if(FinalizandoViajeController.getFinalizado()){
+                        Stage stage = (Stage) btnPausa.getScene().getWindow();
+                        stage.close();
+                    }
                 });
                 st.setTitle("Finalizando Viaje");
                 st.setScene(new Scene(scene));

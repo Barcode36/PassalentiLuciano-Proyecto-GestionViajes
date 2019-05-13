@@ -11,16 +11,20 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.*;
 
 /**
-FXML Controller class
-@author Luciano
-*/
+ * FXML Controller class
+ * @author Luciano
+ */
 public class FinalizandoViajeController implements Initializable{
     
     private Object[] datosViaje = new Object[8];
@@ -28,9 +32,10 @@ public class FinalizandoViajeController implements Initializable{
     private ArrayList<Object[]> peajes = new ArrayList<Object[]>();
     @FXML
     private TextField kmFinales;
+    private static boolean finalizado = false;
     /**
-    Initializes the controller class.
-    */
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         
@@ -38,35 +43,35 @@ public class FinalizandoViajeController implements Initializable{
     public void loadData(Object[] datosViaje, ArrayList<Object[]> combustible, ArrayList<Object[]> peajes){
         
 //            System.out.println("--------Datos del viaje:------");
-            for (int i = 0; i < datosViaje.length; i++){
-                
-                this.datosViaje[i] = datosViaje[i];
-                
-                
+for (int i = 0; i < datosViaje.length; i++){
+    
+    this.datosViaje[i] = datosViaje[i];
+    
+    
 //                if(datosViaje[i]!=null){
 //                    System.out.println("i: "+i+" ----- "+this.datosViaje[i].toString());
 //                }
-//                
+//
 //                if(datosViaje[i]!=null){
 //                    System.out.println("i: "+i+" ----- "+datosViaje[i].toString());
 //                }
-            }
+}
 
 //            System.out.println("--------Cargas de combustible------");
-            for (Object[] obj : combustible){
-            //            for (int i = 0; i < obj.length; i++){
-            //                System.out.println(obj[i].toString());
-            //            }
-            this.combustibles.add(obj);
-            }
+for (Object[] obj : combustible){
+    //            for (int i = 0; i < obj.length; i++){
+    //                System.out.println(obj[i].toString());
+    //            }
+    this.combustibles.add(obj);
+}
 
 //            System.out.println("--------Peajes------");
-            for (Object[] obj : peajes){
-            //            for (int i = 0; i < obj.length; i++){
-            //                System.out.println(obj[i].toString());
-            //            }
-            this.peajes.add(obj);
-            }
+for (Object[] obj : peajes){
+    //            for (int i = 0; i < obj.length; i++){
+    //                System.out.println(obj[i].toString());
+    //            }
+    this.peajes.add(obj);
+}
 
     }
     @FXML
@@ -77,13 +82,14 @@ public class FinalizandoViajeController implements Initializable{
         if(fn.checkINT(kmFinales.getText())){
             if(Integer.valueOf(kmFinales.getText()) > Integer.valueOf(datosViaje[5].toString())){
                 
-                System.out.println("Segundos dedl timer: "+ViajandoController.getSegundos());
+                System.out.println("Segundos del timer: "+ViajandoController.getSegundos());
                 System.out.println("Segundos viajados "+(Long)Database.consulta("Select TIMESTAMPDIFF(SECOND, ?, ?) as duracionTotal FROM lugar", new Object[]{datosViaje[7],Database.consulta("SELECT NOW()").get(0).get("NOW()")}).get(0).get("duracionTotal"));
                 
+                //CREAR EL VIAJE
                 Database.insert("INSERT INTO viaje (tipo,duracion,duracionTotal,idSalida,idLlegada,kilometos,fechaLlegada,fechaSalida) VALUES(?,?,?,?,?,?,?,?)", //TODO: cambiar el nombre de kilometos a KILOMETROS EN LA BASE DE DATOS Y ACA
                         new Object[]{
                             (String)datosViaje[0], // tipo de viaje
-                            ((ViajandoController.getSegundos()-(Long)Database.consulta("Select TIMESTAMPDIFF(SECOND, ?, ?) as duracionTotal FROM lugar", new Object[]{datosViaje[7],Database.consulta("SELECT NOW()").get(0).get("NOW()")}).get(0).get("duracionTotal"))), // duracion (en segundos)
+                            Math.abs((Long)Database.consulta("Select TIMESTAMPDIFF(SECOND, ?, ?) as duracionTotal FROM lugar", new Object[]{datosViaje[7],Database.consulta("SELECT NOW()").get(0).get("NOW()")}).get(0).get("duracionTotal")-(ViajandoController.getSegundos())), // duracion (en segundos)
                             (Long)Database.consulta("Select TIMESTAMPDIFF(SECOND, ?, ?) as duracionTotal FROM lugar", new Object[]{datosViaje[7],Database.consulta("SELECT NOW()").get(0).get("NOW()")}).get(0).get("duracionTotal"),                       // duracion total (en segundos)
                             (Integer)datosViaje[3],//id de salida
                             (Integer)datosViaje[4],//id de llegada
@@ -92,49 +98,66 @@ public class FinalizandoViajeController implements Initializable{
                             datosViaje[7] //fecha de salida
                         });
                 
-                
-                
                 //CREAR LOS PEAJES
                 for (Object[] peaje : peajes) {
-                    Database.insert("INSERT INTO peaje(idViaje,costo,fecha) VALUES(?,?,?)", 
-                    new Object[]{
-                        (Integer)Database.consulta("SELECT MAX(idViaje) as ultimoID FROM viaje").get(0).get("ultimoID"), // id del ultimo viaje insertado
-                        peaje[0],   // costo
-                        peaje[1]    //DATETIME
-                    });
+                    Database.insert("INSERT INTO peaje(idViaje,costo,fecha) VALUES(?,?,?)",
+                            new Object[]{
+                                (Integer)Database.consulta("SELECT MAX(idViaje) as ultimoID FROM viaje").get(0).get("ultimoID"), // id del ultimo viaje insertado
+                                peaje[0],   // costo
+                                peaje[1]    // DATETIME
+                            });
                 }
                 
-                
+                //CREAR LAS CARGAS DE COMBUSTIBLE
                 for (Object[] carga : combustibles) {
-                    Database.insert("INSERT INTO combustible(idViaje,litros,kilometros,precio,fecha) VALUES(?,?,?,?,?)", 
-                    new Object[]{
-                        (Integer)Database.consulta("SELECT MAX(idViaje) as ultimoID FROM viaje").get(0).get("ultimoID"), // id del ultimo viaje insertado
-                        carga[0],   // litros
-                        carga[1],   // km
-                        carga[2],   // precio
-                        carga[3]    // DATETIME
-                    });
+                    Database.insert("INSERT INTO combustible(idViaje,litros,kilometros,precio,fecha) VALUES(?,?,?,?,?)",
+                            new Object[]{
+                                (Integer)Database.consulta("SELECT MAX(idViaje) as ultimoID FROM viaje").get(0).get("ultimoID"), // id del ultimo viaje insertado
+                                carga[0],   // litros
+                                carga[1],   // km
+                                carga[2],   // precio
+                                carga[3]    // DATETIME
+                            });
                 }
                 
-               //CREAR LAS CARGAS DE COMBUSTIBLE
                 
-               //TODO: DECIR QUE FUE SUCCESSFULL Y CERRAR TODO
-               //fixear el bug de la duracion total del viaje
+
+                //fixear el bug del timer que no se cierra
                 
                 
-                //PICKER ARCHIVO
-              // FileChooser fc = new FileChooser();
-              // fc.getExtensionFilters().add(new ExtensionFilter ("Ficheros de texto", ".txt"));
-              // File selectedFile = fc.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
-              // if(selectedFile!=null) System.out.println(selectedFile.getAbsolutePath());
+                //Ventana de creacion exitosa
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("viajeSuccsess.fxml"));
+                    
+                    Parent scene = (Parent) loader.load();
+                    Stage st = new Stage();
+                    Stage stage = (Stage) kmFinales.getScene().getWindow();
+                    
+                    ViajeSuccsessController controller = loader.<ViajeSuccsessController>getController();
+                    st.initModality(Modality.APPLICATION_MODAL);
+                    st.setOnCloseRequest((WindowEvent we) -> {
+                        stage.fireEvent(
+                                new WindowEvent(
+                                        stage,
+                                        WindowEvent.WINDOW_CLOSE_REQUEST
+                                )
+                        );
+                    });
+                    st.setTitle("Finalizado Correctamente");
+                    st.setScene(new Scene(scene));
+                    st.show();
+                    
+                    finalizado = true;
+                    
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 
-                 //ALERT de creacion
-                Alert alert = new Alert(AlertType.INFORMATION, "Se creo el viaje correctamente");
-                alert.showAndWait();
                 
             }
             else{
-                System.out.println("Los kilometros no puden ser menores a los con que se salio");
+                System.out.println("Los kilometros no pueden ser menores a con los que se salieron");
             }
         }
         else{
@@ -142,6 +165,10 @@ public class FinalizandoViajeController implements Initializable{
             System.out.println("Solo se admiten numeros enteros");
         }
         
+    }
+    
+    public static boolean getFinalizado() {
+        return FinalizandoViajeController.finalizado;
     }
     
 }

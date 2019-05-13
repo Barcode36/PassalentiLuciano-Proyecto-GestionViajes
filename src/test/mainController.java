@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
 
@@ -42,6 +43,7 @@ public class mainController implements Initializable{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             stage.setTitle("Nuevo Viaje");
+            stage.setOnCloseRequest((WindowEvent we) -> System.exit(0));
             stage.setScene(new Scene(root1));   
             stage.show();
         }
