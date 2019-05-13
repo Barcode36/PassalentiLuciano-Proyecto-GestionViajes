@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -110,7 +112,8 @@ public class NuevoViajeController implements Initializable{
             
         }
         else{
-            //mostrar mensaje de error QUE NO PUEDEN SER LETRAS LOS KILOMETROS
+            Alert alert = new Alert(AlertType.ERROR, "El campo Kilometros no puede contener letras");
+            alert.showAndWait();
         }
     }
     @FXML

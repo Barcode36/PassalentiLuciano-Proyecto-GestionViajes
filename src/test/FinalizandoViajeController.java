@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -157,12 +158,13 @@ for (Object[] obj : peajes){
                 
             }
             else{
-                System.out.println("Los kilometros no pueden ser menores a con los que se salieron");
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Los kilometros no pueden ser menores a con los que se salieron");
+                alert.showAndWait();
             }
         }
         else{
-            //TODO mensaje de error
-            System.out.println("Solo se admiten numeros enteros");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Solo se admiten numeros enteros");
+            alert.showAndWait();
         }
         
     }

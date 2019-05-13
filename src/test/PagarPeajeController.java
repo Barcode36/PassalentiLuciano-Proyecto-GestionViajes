@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -34,7 +35,7 @@ public class PagarPeajeController implements Initializable{
     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        // TODO
+        
     }
     @FXML
     private void pagarPeaje(ActionEvent event){
@@ -52,11 +53,9 @@ public class PagarPeajeController implements Initializable{
             }
         }
         else{
-            System.out.println("El peaje no admite letras");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "El peaje no admite letras");
+            alert.showAndWait();
         }
-        
-        // TODO
-        //MOSTRAR  ventanas de ERRORES error
         
     }
     

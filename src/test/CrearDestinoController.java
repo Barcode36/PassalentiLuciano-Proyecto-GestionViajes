@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -51,15 +52,14 @@ public class CrearDestinoController implements Initializable{
                 stage.close();
             }
             else{
-                System.out.println("Ya existe un lugar con esos datos");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Ya existe un lugar con esos datos");
+                alert.showAndWait();
             }
         }
         else{
-            System.out.println("El numero de direccion esta mal?");
-            // TODO
-            //MOSTRAR  ventanas de ERRORES error
+            Alert alert = new Alert(Alert.AlertType.ERROR, "El numero de direccion esta mal?");
+            alert.showAndWait();
         }
-        
     }
     
 }
