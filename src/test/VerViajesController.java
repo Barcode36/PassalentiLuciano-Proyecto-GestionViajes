@@ -51,9 +51,9 @@ public class VerViajesController implements Initializable {
     @FXML
     private TableColumn<Viaje, String> tipo;
     @FXML
-    private TableColumn<Viaje, Integer> duracion;
+    private TableColumn<Viaje, String> duracion;
     @FXML
-    private TableColumn<Viaje, Integer> duracionTotal;
+    private TableColumn<Viaje, String> duracionTotal;
     @FXML
     private TableColumn<Viaje, String> salida;
     @FXML
@@ -70,8 +70,6 @@ public class VerViajesController implements Initializable {
     
     // LISTA DE TODO:
     //  -Fixear el cronometro (por quinta vez)
-    //  -Insertar en la tabla los nombres de las salidas/llegadas en vez de los id
-    //  -Mostrar la duracion del viaje con un formato adecuado
     //  -Hacer el boton de Crear Archivo (Con los datos de la tabla)
     //  -Hacer el boton de Eliminar
     //  -Hacer el boton de modificar (Con todos los campos y lanzar la consulta con los datos y recargar la tabla)
@@ -84,8 +82,8 @@ public class VerViajesController implements Initializable {
         cargarViajesTabla();
         
         tipo.setCellValueFactory(new PropertyValueFactory<Viaje,String>("tipo"));
-        duracion.setCellValueFactory(new PropertyValueFactory<Viaje,Integer>("duracion"));
-        duracionTotal.setCellValueFactory(new PropertyValueFactory<Viaje,Integer>("duracionTotal"));
+        duracion.setCellValueFactory(new PropertyValueFactory<Viaje,String>("duracionFormato"));
+        duracionTotal.setCellValueFactory(new PropertyValueFactory<Viaje,String>("duracionTotalFormato"));
         salida.setCellValueFactory(new PropertyValueFactory<Viaje,String>("nombreSalida"));
         llegada.setCellValueFactory(new PropertyValueFactory<Viaje,String>("nombreLlegada"));
         kmRecorridos.setCellValueFactory(new PropertyValueFactory<Viaje,Integer>("kilometros"));

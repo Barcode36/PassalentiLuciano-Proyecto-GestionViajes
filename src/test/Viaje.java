@@ -24,6 +24,8 @@ public class Viaje {
     private int kilometros;
     private Object fechaLlegada;
     private Object fechaSalida;
+    private String duracionFormato;
+    private String duracionTotalFormato;
     
 //    java.util.Date dt = new java.util.Date();
 //    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -41,6 +43,8 @@ public class Viaje {
         this.fechaSalida = fechaSalida;
         this.nombreSalida = idToNombreLugar(idSalida);
         this.nombreLlegada = idToNombreLugar(idLlegada);
+        this.duracionFormato = getDuracionEnFormato(duracion);
+        this.duracionTotalFormato = getDuracionEnFormato(duracionTotal);
     }
     private String idToNombreLugar(int id){
         HashMap<Integer,HashMap<String,Object>> salida = Database.consulta("SELECT * FROM lugar WHERE idLugar = ?", new Object[]{id});
@@ -52,75 +56,102 @@ public class Viaje {
     public String getNombreLlegada() {
         return nombreLlegada;
     }
+    public String getDuracionEnFormato(int segundos){
+        String seg="",min="",hr="";
+        int horas =0,minutos=0;
+        
+        while(segundos>=60){
+            if(segundos>=3600) {
+                horas++;
+                segundos-=3600;
+            }
+            else if(segundos>=60) {
+                minutos++;
+                segundos-=60;
+            }
+        }
+        if(segundos<=9) {seg = "0";}
+        if(minutos<=9) {min = "0";}
+        if(horas<=9) {hr = "0";}
+        
+        return (hr+horas+":"+min+minutos+":"+seg+segundos);
+    }
+
+    public String getDuracionFormato() {
+        return duracionFormato;
+    }
+    public String getDuracionTotalFormato() {
+        return duracionTotalFormato;
+    }
     
     public int getIdViaje() {
         return idViaje;
     }
-
+    
     public String getTipo() {
         return tipo;
     }
-
+    
     public int getDuracion() {
         return duracion;
     }
-
+    
     public int getDuracionTotal() {
         return duracionTotal;
     }
-
+    
     public int getIdSalida() {
         return idSalida;
     }
-
+    
     public int getIdLlegada() {
         return idLlegada;
     }
-
+    
     public int getKilometros() {
         return kilometros;
     }
-
+    
     public Object getFechaLlegada() {
         return fechaLlegada;
     }
-
+    
     public Object getFechaSalida() {
         return fechaSalida;
     }
-
+    
     public void setIdViaje(int idViaje) {
         this.idViaje = idViaje;
     }
-
+    
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
+    
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
-
+    
     public void setDuracionTotal(int duracionTotal) {
         this.duracionTotal = duracionTotal;
     }
-
+    
     public void setIdSalida(int idSalida) {
         this.idSalida = idSalida;
     }
-
+    
     public void setIdLlegada(int idLlegada) {
         this.idLlegada = idLlegada;
     }
-
+    
     public void setKilometros(int kilometros) {
         this.kilometros = kilometros;
     }
-
+    
     public void setFechaLlegada(Object fechaLlegada) {
         this.fechaLlegada = fechaLlegada;
     }
-
+    
     public void setFechaSalida(Object fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
