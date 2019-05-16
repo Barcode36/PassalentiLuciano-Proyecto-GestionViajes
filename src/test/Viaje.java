@@ -5,7 +5,8 @@
 */
 package test;
 
-import java.sql.Date;
+import java.util.HashMap;
+import model.Database;
 
 /**
  *
@@ -17,7 +18,9 @@ public class Viaje {
     private int duracion;
     private int duracionTotal;
     private int idSalida;
+    private String nombreSalida;
     private int idLlegada;
+    private String nombreLlegada;
     private int kilometros;
     private Object fechaLlegada;
     private Object fechaSalida;
@@ -25,18 +28,6 @@ public class Viaje {
 //    java.util.Date dt = new java.util.Date();
 //    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //    String currentTime = sdf.format(dt);
-
-    public Viaje(String tipo, int duracion, int duracionTotal, int idSalida, int idLlegada, int kilometros, Object fechaLlegada, Object fechaSalida) {
-        this.idViaje = idViaje;
-        this.tipo = tipo;
-        this.duracion = duracion;
-        this.duracionTotal = duracionTotal;
-        this.idSalida = idSalida;
-        this.idLlegada = idLlegada;
-        this.kilometros = kilometros;
-        this.fechaLlegada = fechaLlegada;
-        this.fechaSalida = fechaSalida;
-    }
     
     public Viaje(int idViaje, String tipo, int duracion, int duracionTotal, int idSalida, int idLlegada, int kilometros, Object fechaLlegada, Object fechaSalida) {
         this.idViaje = idViaje;
@@ -48,8 +39,20 @@ public class Viaje {
         this.kilometros = kilometros;
         this.fechaLlegada = fechaLlegada;
         this.fechaSalida = fechaSalida;
+        this.nombreSalida = idToNombreLugar(idSalida);
+        this.nombreLlegada = idToNombreLugar(idLlegada);
     }
-
+    private String idToNombreLugar(int id){
+        HashMap<Integer,HashMap<String,Object>> salida = Database.consulta("SELECT * FROM lugar WHERE idLugar = ?", new Object[]{id});
+        return (String)salida.get(0).get("ciudad")+"/"+(String)salida.get(0).get("direccion")+" "+(int)salida.get(0).get("nDireccion");
+    }
+    public String getNombreSalida() {
+        return nombreSalida;
+    }
+    public String getNombreLlegada() {
+        return nombreLlegada;
+    }
+    
     public int getIdViaje() {
         return idViaje;
     }

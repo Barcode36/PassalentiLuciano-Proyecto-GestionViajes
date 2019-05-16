@@ -7,13 +7,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="261.0" prefWidth="232.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.mainController">
+<AnchorPane id="AnchorPane" prefHeight="261.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.mainController">
    <children>
-      <Button fx:id="newViaje" layoutX="54.0" layoutY="33.0" mnemonicParsing="false" onAction="#openVentanaViaje" text="Nuevo viaje">
+      <Button fx:id="newViaje" layoutX="70.0" layoutY="33.0" mnemonicParsing="false" onAction="#openVentanaViaje" text="Nuevo viaje">
          <font>
             <Font size="19.0" />
          </font></Button>
-      <Button fx:id="btnVerViajes" layoutX="63.0" layoutY="89.0" mnemonicParsing="false" onAction="#openVentanaVerViajes" text="Ver viajes">
+      <Button fx:id="btnVerViajes" layoutX="79.0" layoutY="89.0" mnemonicParsing="false" onAction="#openVentanaVerViajes" text="Ver viajes">
          <font>
             <Font size="19.0" />
          </font></Button>
