@@ -77,8 +77,6 @@ public class VerViajesController implements Initializable {
     
     // LISTA DE TODO:
     //  -Fixear el cronometro (por quinta vez)
-    //  -Hacer el boton de Crear Archivo (Con los datos de la tabla)
-    //  -Hacer el boton de Eliminar
     //  -Hacer el boton de modificar (Con todos los campos y lanzar la consulta con los datos y recargar la tabla)
     //  -Hacer el boton de Cerrar
     //  -Hacer el campo de filtro (con delay de 1 seg) y llenar el comboBox(salida, llegada y tipo)
@@ -88,17 +86,7 @@ public class VerViajesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cargarViajesTabla();
         
-        tipo.setCellValueFactory(new PropertyValueFactory<Viaje,String>("tipo"));
-        duracion.setCellValueFactory(new PropertyValueFactory<Viaje,String>("duracionFormato"));
-        duracionTotal.setCellValueFactory(new PropertyValueFactory<Viaje,String>("duracionTotalFormato"));
-        salida.setCellValueFactory(new PropertyValueFactory<Viaje,String>("nombreSalida"));
-        llegada.setCellValueFactory(new PropertyValueFactory<Viaje,String>("nombreLlegada"));
-        kmRecorridos.setCellValueFactory(new PropertyValueFactory<Viaje,Integer>("kilometros"));
-        fechaLlegada.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaLlegada"));
-        fechaSalida.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaSalida"));
-        
         tvViajes.setItems(listaViajes);
-        
     }
     
     private void cargarViajesTabla(){
@@ -120,6 +108,31 @@ public class VerViajesController implements Initializable {
                                     (Object)v.get("fechaSalida")
                             )
         ));
+        tipo.setCellValueFactory(new PropertyValueFactory<Viaje,String>("tipo"));
+        duracion.setCellValueFactory(new PropertyValueFactory<Viaje,String>("duracionFormato"));
+        duracionTotal.setCellValueFactory(new PropertyValueFactory<Viaje,String>("duracionTotalFormato"));
+        salida.setCellValueFactory(new PropertyValueFactory<Viaje,String>("nombreSalida"));
+        llegada.setCellValueFactory(new PropertyValueFactory<Viaje,String>("nombreLlegada"));
+        kmRecorridos.setCellValueFactory(new PropertyValueFactory<Viaje,Integer>("kilometros"));
+        fechaLlegada.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaLlegada"));
+        fechaSalida.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaSalida"));
+    }
+    
+    
+    @FXML
+    private void eliminarSelected(ActionEvent event) {
+        if(tvViajes.getSelectionModel().getSelectedItem()!=null){
+                    Database.insert("DELETE FROM viaje WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
+                    
+                    //recargar la tabla
+                   listaViajes.clear();
+                   cargarViajesTabla();
+                   tvViajes.setItems(listaViajes);
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun viaje seleccionado");
+            alert.showAndWait();
+        }
     }
     
     @FXML

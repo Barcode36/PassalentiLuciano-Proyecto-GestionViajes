@@ -45,7 +45,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnEliminarSeleccionado" layoutX="990.0" layoutY="422.0" mnemonicParsing="false" text="Eliminar">
+      <Button fx:id="btnEliminarSeleccionado" layoutX="990.0" layoutY="422.0" mnemonicParsing="false" onAction="#eliminarSelected" text="Eliminar">
          <font>
             <Font size="15.0" />
          </font></Button>
