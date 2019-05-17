@@ -24,7 +24,7 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <Button fx:id="btnCrearArchivo" layoutX="295.0" layoutY="421.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="221.0" text="Crear Archivo">
+      <Button fx:id="btnCrearArchivo" layoutX="295.0" layoutY="421.0" mnemonicParsing="false" onAction="#crearArchivo" prefHeight="37.0" prefWidth="221.0" text="Crear Archivo">
          <font>
             <Font size="16.0" />
          </font>
