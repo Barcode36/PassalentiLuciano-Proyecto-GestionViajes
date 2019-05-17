@@ -15,7 +15,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -78,7 +80,6 @@ public class VerViajesController implements Initializable {
     // LISTA DE TODO:
     //  -Fixear el cronometro (por quinta vez)
     //  -Hacer el boton de modificar (Con todos los campos y lanzar la consulta con los datos y recargar la tabla)
-    //  -Hacer el boton de Cerrar
     //  -Hacer el campo de filtro (con delay de 1 seg) y llenar el comboBox(salida, llegada y tipo)
     //  -Hacer un boton para ver los gastos de un Viaje
     //  -Hacer Css para algunas cosas
@@ -96,17 +97,17 @@ public class VerViajesController implements Initializable {
         listaViajes = FXCollections.observableArrayList();
         // añadir los objetos a la lista
         viajes.forEach((k,v) -> listaViajes.add(new
-                            Viaje(
-                                    (int)v.get("idViaje"),
-                                    (String)v.get("tipo"),
-                                    (int)v.get("duracion"),
-                                    (int)v.get("duracionTotal"),
-                                    (int)v.get("idSalida"),
-                                    (int)v.get("idLlegada"),
-                                    (int)v.get("kilometos"),
-                                    (Object)v.get("fechaLlegada"),
-                                    (Object)v.get("fechaSalida")
-                            )
+                                    Viaje(
+                                            (int)v.get("idViaje"),
+                                            (String)v.get("tipo"),
+                                            (int)v.get("duracion"),
+                                            (int)v.get("duracionTotal"),
+                                            (int)v.get("idSalida"),
+                                            (int)v.get("idLlegada"),
+                                            (int)v.get("kilometos"),
+                                            (Object)v.get("fechaLlegada"),
+                                            (Object)v.get("fechaSalida")
+                                    )
         ));
         tipo.setCellValueFactory(new PropertyValueFactory<Viaje,String>("tipo"));
         duracion.setCellValueFactory(new PropertyValueFactory<Viaje,String>("duracionFormato"));
@@ -117,17 +118,19 @@ public class VerViajesController implements Initializable {
         fechaLlegada.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaLlegada"));
         fechaSalida.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaSalida"));
     }
-    
+    private void recargarTabla(){
+        listaViajes.clear();
+        cargarViajesTabla();
+        tvViajes.setItems(listaViajes);
+    }
     
     @FXML
     private void eliminarSelected(ActionEvent event) {
         if(tvViajes.getSelectionModel().getSelectedItem()!=null){
-                    Database.insert("DELETE FROM viaje WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
-                    
-                    //recargar la tabla
-                   listaViajes.clear();
-                   cargarViajesTabla();
-                   tvViajes.setItems(listaViajes);
+            Database.insert("DELETE FROM viaje WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Viaje eliminado correctamente");
+            alert.showAndWait();
+            recargarTabla();
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun viaje seleccionado");
@@ -155,8 +158,8 @@ public class VerViajesController implements Initializable {
                     + "<title>Viajes</title>"
                     + "</head>"
                     + "<body>";
-            String footer= 
-                        "</body>"
+            String footer=
+                    "</body>"
                     + "</html>";
             String contenido="";
             
@@ -206,6 +209,12 @@ public class VerViajesController implements Initializable {
             alert.showAndWait();
         }
         
+    }
+    
+    @FXML
+    private void cerrarVentana(ActionEvent event) {
+        Stage stage = (Stage) btnCerrarVentana.getScene().getWindow();
+        stage.close();
     }
     
     

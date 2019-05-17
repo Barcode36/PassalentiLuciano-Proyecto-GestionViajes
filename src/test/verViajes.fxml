@@ -29,7 +29,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btnCerrarVentana" layoutX="1343.0" layoutY="423.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="76.0" text="Cerrar">
+      <Button fx:id="btnCerrarVentana" layoutX="1343.0" layoutY="423.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="37.0" prefWidth="76.0" text="Cerrar">
          <font>
             <Font size="16.0" />
          </font>
