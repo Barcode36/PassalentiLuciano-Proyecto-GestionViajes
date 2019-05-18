@@ -32,17 +32,13 @@ FXML Controller class
 @author Luciano
 */
 public class ViajandoController implements Initializable{
-    @FXML
-    private Label status;
+    
     private Object[] data;
     private static int segundos=0,horas=0,minutos=0;
     @FXML
     private Label cronometro;
-    private boolean pausado = false;
     private Timer timer;
     private TimerTask timerTask;
-    @FXML
-    private Button btnPausa;
     private static ArrayList<Object[]> gastosCombustible = new ArrayList<Object[]>();
     private static ArrayList<Object[]> peajes = new ArrayList<Object[]>();
     
@@ -64,69 +60,66 @@ public class ViajandoController implements Initializable{
                     @Override
                     public void run() {
                         segundos++;
-                        actualizar();
-                        artualizarCronometro();
+                        
+                        String seg="",min="",hr="";
+                        if(minutos>=60){
+                            horas++;
+                            minutos=0;
+                        }
+                        if(segundos>=60){
+                            minutos++;
+                            segundos=0;
+                        }
+                        if(segundos<=9) {seg = "0";}
+                        if(minutos<=9) {min = "0";}
+                        if(horas<=9) {hr = "0";}
+
+                        cronometro.setText(hr+horas+":"+min+minutos+":"+seg+segundos);
                     }
                 });
             }
         };
         
-        timer.schedule(timerTask, 1000, 1000);
-        status.setText("ACTIVO");
+        timer.schedule(timerTask, 0, 1000);
         
-    }
-    private void actualizar(){
-        if(minutos>=60){
-            horas++;
-            minutos=0;
-        }
-        if(segundos>=60){
-            minutos++;
-            segundos=0;
-        }
     }
     private void artualizarCronometro(){
-        String seg="",min="",hr="";
-        if(segundos<=9) {seg = "0";}
-        if(minutos<=9) {min = "0";}
-        if(horas<=9) {hr = "0";}
         
-        cronometro.setText(hr+horas+":"+min+minutos+":"+seg+segundos);
     }
-    @FXML
-    private void pausar(){
-        try {
-            sleep(2);
-        } 
-        catch (InterruptedException ex) {
-            System.out.println(ex.getMessage());
-        }
-        if(pausado==false){
-            pausado=true;
-            btnPausa.setText("Reanudar");
-            status.setText("PAUSADO");
-            timer.cancel();
-        }
-        else{
-            pausado=false;
-            btnPausa.setText("Pausar");
-            status.setText("ACTIVO");
-            timer = new Timer();
-            timer.schedule( new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            segundos++;
-                            actualizar();
-                            artualizarCronometro();
-                        }
-                    });
-                }
-            }, 0, 1000);
-        }
-    }
+//    @FXML
+//    private void pausar(){
+//        try {
+//            sleep(2);
+//        } 
+//        catch (InterruptedException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        if(pausado==false){
+//            pausado=true;
+//            btnPausa.setText("Reanudar");
+//            status.setText("PAUSADO");
+//            timer.cancel();
+//        }
+//        else{
+//            pausado=false;
+//            btnPausa.setText("Pausar");
+//            status.setText("ACTIVO");
+//            timer = new Timer();
+//            timer.schedule( new TimerTask() {
+//                @Override
+//                public void run() {
+//                    Platform.runLater(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            segundos++;
+//                            actualizar();
+//                            artualizarCronometro();
+//                        }
+//                    });
+//                }
+//            }, 0, 1000);
+//        }
+//    }
     public void loadData(Object[] data){
         this.data = new Object[data.length+4];
         
@@ -204,7 +197,7 @@ public class ViajandoController implements Initializable{
                 
                 Parent scene = (Parent) loader.load();
                 Stage st = new Stage();
-                pausar();
+//                pausar();
                
                 FinalizandoViajeController controller = loader.<FinalizandoViajeController>getController();
                 controller.loadData(
@@ -216,10 +209,11 @@ public class ViajandoController implements Initializable{
                 st.setOnCloseRequest(WindowEvent -> {
                     System.out.println("esta finalizado? "+controller.getFinalizado());
                     if(FinalizandoViajeController.getFinalizado()){
-                        Stage stage = (Stage) btnPausa.getScene().getWindow();
+                        Stage stage = (Stage) cronometro.getScene().getWindow();
+                        cancelTimer();
                         stage.close();
                     }
-                    cancelTimer();
+                    
                 });
                 st.setTitle("Finalizando Viaje");
                 st.setScene(new Scene(scene));

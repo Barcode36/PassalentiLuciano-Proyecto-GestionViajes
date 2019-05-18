@@ -19,7 +19,7 @@
             <TableColumn fx:id="fechaSalida" prefWidth="148.0" text="Fecha Salida" />
         </columns>
       </TableView>
-      <TextField fx:id="tfBusqueda" layoutX="99.0" layoutY="12.0">
+      <TextField fx:id="tfBusqueda" layoutX="99.0" layoutY="12.0" onKeyReleased="#busqueda">
          <font>
             <Font size="13.0" />
          </font>

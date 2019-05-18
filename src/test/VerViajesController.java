@@ -26,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Database;
@@ -47,7 +48,7 @@ public class VerViajesController implements Initializable {
     @FXML
     private Button btnCerrarVentana;
     @FXML
-    private ComboBox<?> cbColumna;
+    private ComboBox<String> cbColumna;
     @FXML
     private Button btnEliminarSeleccionado;
     @FXML
@@ -79,24 +80,30 @@ public class VerViajesController implements Initializable {
     
     // LISTA DE TODO:
     //  -Fixear el cronometro (por quinta vez)
+    //  -cuando finaliza la creacion del viaje resetear el cronometro
+    
     //  -Hacer el boton de modificar (Con todos los campos y lanzar la consulta con los datos y recargar la tabla)
-    //  -Hacer el campo de filtro (con delay de 1 seg) y llenar el comboBox(salida, llegada y tipo)
     //  -Hacer un boton para ver los gastos de un Viaje
     //  -Hacer Css para algunas cosas
+    //  -mejorar el filtro con objetos (Hacer que muestren el nombre pero tener un atributo que afecta la busqueda)
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarViajesTabla();
-        
+        viajes = Database.consulta("SELECT * FROM viaje");
+        cargarViajesTabla(viajes);
         tvViajes.setItems(listaViajes);
+        
+       ////////
+       
+       ObservableList<String> data = FXCollections.observableArrayList("tipo"); ///Salida llegada tipo
+        cbColumna.setValue(data.get(0));
+        cbColumna.setItems(data);
     }
     
-    private void cargarViajesTabla(){
-        // consulta a la bd
-        viajes = Database.consulta("SELECT * FROM viaje");
+    private void cargarViajesTabla(HashMap<Integer,HashMap<String,Object>> items){
         // crear la observable list
         listaViajes = FXCollections.observableArrayList();
         // añadir los objetos a la lista
-        viajes.forEach((k,v) -> listaViajes.add(new
+        items.forEach((k,v) -> listaViajes.add(new
                                     Viaje(
                                             (int)v.get("idViaje"),
                                             (String)v.get("tipo"),
@@ -118,11 +125,17 @@ public class VerViajesController implements Initializable {
         fechaLlegada.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaLlegada"));
         fechaSalida.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaSalida"));
     }
-    private void recargarTabla(){
+    private void recargarTabla(HashMap<Integer,HashMap<String,Object>> items){
         listaViajes.clear();
-        cargarViajesTabla();
+        cargarViajesTabla(items);
         tvViajes.setItems(listaViajes);
     }
+    @FXML
+    private void busqueda(KeyEvent event) {
+//        System.out.println("SELECT * FROM viaje WHERE "+cbColumna.getItems().get(0)+" LIKE \""+'%'+"?"+'%'+"\"");
+        recargarTabla(Database.consulta("SELECT * FROM viaje WHERE "+cbColumna.getItems().get(0)+" LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));
+    }
+    
     
     @FXML
     private void eliminarSelected(ActionEvent event) {
@@ -130,7 +143,8 @@ public class VerViajesController implements Initializable {
             Database.insert("DELETE FROM viaje WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Viaje eliminado correctamente");
             alert.showAndWait();
-            recargarTabla();
+            recargarTabla(Database.consulta("SELECT * FROM viaje"));
+            tfBusqueda.setText("");
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun viaje seleccionado");
@@ -216,6 +230,7 @@ public class VerViajesController implements Initializable {
         Stage stage = (Stage) btnCerrarVentana.getScene().getWindow();
         stage.close();
     }
+
     
     
 }

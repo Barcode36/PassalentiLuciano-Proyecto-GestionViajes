@@ -17,11 +17,6 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <Button fx:id="btnPausa" layoutX="107.0" layoutY="54.0" mnemonicParsing="false" onAction="#pausar" text="Pausar">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
       <Button layoutX="64.0" layoutY="120.0" mnemonicParsing="false" onAction="#mostrarCargaCombustible" text="Cargar Combustible">
          <font>
             <Font size="16.0" />
@@ -37,6 +32,5 @@
             <Font size="19.0" />
          </font>
       </Button>
-      <Label fx:id="status" layoutX="38.0" layoutY="65.0" text="STATUS" />
    </children>
 </AnchorPane>
