@@ -31,7 +31,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="710.0" layoutY="346.0" mnemonicParsing="false" text="Cerrar">
+      <Button layoutX="710.0" layoutY="346.0" mnemonicParsing="false" onAction="#cerrar" text="Cerrar">
          <font>
             <Font size="15.0" />
          </font>

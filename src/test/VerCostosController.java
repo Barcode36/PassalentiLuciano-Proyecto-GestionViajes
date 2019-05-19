@@ -10,12 +10,14 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.Database;
 
 /**
@@ -108,5 +110,10 @@ public class VerCostosController implements Initializable{
  
     }
     
+    @FXML
+    private void cerrar(ActionEvent event){
+        Stage stage = (Stage) costoTotalPeajes.getScene().getWindow();     
+        stage.close();
+    }
     
 }

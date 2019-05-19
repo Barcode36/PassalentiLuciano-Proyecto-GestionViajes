@@ -59,10 +59,6 @@ public class VerViajesController implements Initializable {
     private Button btnEliminarSeleccionado;
     @FXML
     private Button btnEditarSeleccionado;
-    @FXML
-    private Button btnAceptarEdicion;
-    @FXML
-    private Button btnCancelarEdicion;
     private HashMap<Integer,HashMap<String,Object>> viajes;
     @FXML
     private TableColumn<Viaje, String> tipo;
@@ -87,11 +83,9 @@ public class VerViajesController implements Initializable {
     */
     
     // LISTA DE TODO:
-    //  -Fixear el cronometro (por quinta vez)
     //  -cuando finaliza la creacion del viaje resetear el cronometro
     
     //  -Hacer el boton de modificar (Con todos los campos y lanzar la consulta con los datos y recargar la tabla)
-    //  -Hacer un boton para ver los gastos de un Viaje
     //  -Hacer Css para algunas cosas
     //  -mejorar el filtro con objetos (Hacer que muestren el nombre pero tener un atributo que afecta la busqueda)
     @Override
@@ -273,6 +267,34 @@ public class VerViajesController implements Initializable {
     private void cerrarVentana(ActionEvent event) {
         Stage stage = (Stage) btnCerrarVentana.getScene().getWindow();
         stage.close();
+    }
+    @FXML
+    private void editarViaje(ActionEvent event){
+                
+        if(tvViajes.getSelectionModel().getSelectedItem()!=null){
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("editarViaje.fxml"));
+                EditarViajeController.cargarViaje(tvViajes.getSelectionModel().getSelectedItem());
+                Parent scene = (Parent) loader.load();
+                Stage st = new Stage();
+                st.setOnCloseRequest((WindowEvent we) -> {
+                    recargarTabla(Database.consulta("SELECT * FROM viaje"));
+                });
+                st.initModality(Modality.APPLICATION_MODAL);
+                st.setTitle("Editar");
+                st.setScene(new Scene(scene));
+                st.show();
+
+            }
+            catch (IOException ex){
+                Logger.getLogger(VerViajesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun viaje seleccionado");
+            alert.showAndWait();
+        }
+        
     }
     
     
