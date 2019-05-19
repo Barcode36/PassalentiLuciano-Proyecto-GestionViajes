@@ -9,9 +9,9 @@ import java.util.HashMap;
 import model.Database;
 
 /**
- *
- * @author DAW
- */
+*
+* @author DAW
+*/
 public class Viaje {
     private int idViaje;
     private String tipo;
@@ -26,6 +26,7 @@ public class Viaje {
     private Object fechaSalida;
     private String duracionFormato;
     private String duracionTotalFormato;
+    private Double gastoTotal;
     
 //    java.util.Date dt = new java.util.Date();
 //    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -45,17 +46,44 @@ public class Viaje {
         this.nombreLlegada = idToNombreLugar(idLlegada);
         this.duracionFormato = getDuracionEnFormato(duracion);
         this.duracionTotalFormato = getDuracionEnFormato(duracionTotal);
+        this.gastoTotal = getGastoTotal(idViaje);
     }
+    public Double getGastoTotal(int idViaje){
+        return getCostoPeajes()+getCostoCombustible();
+    }
+    public double getCostoPeajes(){
+        Double retorno=(double)0;
+        Double costePeaje = (Double) Database.consulta("SELECT SUM(p.costo) AS suma FROM peaje p WHERE p.idViaje = ?", new Object[]{idViaje}).get(0).get("suma");
+        if(costePeaje!=null){
+            retorno+=costePeaje;
+        }
+        return retorno;
+    }
+    public double getCostoCombustible(){
+        Double retorno=(double)0;
+        Double costeCombustible = (Double) Database.consulta("SELECT SUM(c.precio) AS suma FROM combustible c WHERE c.idViaje = ?", new Object[]{idViaje}).get(0).get("suma");
+        if(costeCombustible!=null){
+            retorno+= costeCombustible;
+        }
+        return retorno;
+    }
+    public double getGastoTotal(){
+        return gastoTotal;
+    }
+    
     private String idToNombreLugar(int id){
         HashMap<Integer,HashMap<String,Object>> salida = Database.consulta("SELECT * FROM lugar WHERE idLugar = ?", new Object[]{id});
         return (String)salida.get(0).get("ciudad")+"/"+(String)salida.get(0).get("direccion")+" "+(int)salida.get(0).get("nDireccion");
     }
+    
     public String getNombreSalida() {
         return nombreSalida;
     }
+    
     public String getNombreLlegada() {
         return nombreLlegada;
     }
+    
     public String getDuracionEnFormato(int segundos){
         String seg="",min="",hr="";
         int horas =0,minutos=0;
@@ -76,7 +104,7 @@ public class Viaje {
         
         return (hr+horas+":"+min+minutos+":"+seg+segundos);
     }
-
+    
     public String getDuracionFormato() {
         return duracionFormato;
     }

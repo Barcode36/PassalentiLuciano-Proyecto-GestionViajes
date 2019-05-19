@@ -7,15 +7,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="1439.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.VerViajesController">
    <children>
-      <TableView fx:id="tvViajes" layoutX="23.0" layoutY="52.0" prefHeight="361.0" prefWidth="1064.0">
+      <TableView fx:id="tvViajes" layoutX="23.0" layoutY="52.0" prefHeight="361.0" prefWidth="1072.0">
         <columns>
           <TableColumn fx:id="tipo" prefWidth="100.33333587646484" text="Tipo" />
-          <TableColumn fx:id="duracion" prefWidth="70.0" text="Duracion" />
+          <TableColumn fx:id="coste" prefWidth="70.0" text="Coste" />
             <TableColumn fx:id="duracionTotal" prefWidth="95.0" text="Duracion Total" />
             <TableColumn fx:id="salida" prefWidth="206.0" text="Salida" />
             <TableColumn fx:id="llegada" prefWidth="229.66665649414062" text="LLegada" />
             <TableColumn fx:id="kmRecorridos" prefWidth="89.66665649414062" text="Km Recorridos" />
-            <TableColumn fx:id="fechaLlegada" prefWidth="120.0" text="Fecha Llegada" />
+            <TableColumn fx:id="fechaLlegada" prefWidth="130.0" text="Fecha Llegada" />
             <TableColumn fx:id="fechaSalida" prefWidth="148.0" text="Fecha Salida" />
         </columns>
       </TableView>
@@ -49,11 +49,16 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="btnEditarSeleccionado" layoutX="909.0" layoutY="423.0" mnemonicParsing="false" text="Editar">
+      <Button fx:id="btnEditarSeleccionado" layoutX="909.0" layoutY="422.0" mnemonicParsing="false" text="Editar">
          <font>
             <Font size="15.0" />
          </font></Button>
       <Button fx:id="btnAceptarEdicion" layoutX="1194.0" layoutY="387.0" mnemonicParsing="false" text="Aceptar" />
       <Button fx:id="btnCancelarEdicion" layoutX="1270.0" layoutY="387.0" mnemonicParsing="false" text="Cancelar" />
+      <Button fx:id="btnVerGastos" layoutX="796.0" layoutY="422.0" mnemonicParsing="false" onAction="#verGastos" text="Ver gastos">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

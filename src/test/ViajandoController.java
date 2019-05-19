@@ -6,7 +6,6 @@ and open the template in the editor.
 package test;
 
 import java.io.IOException;
-import static java.lang.Thread.sleep;
 import model.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
