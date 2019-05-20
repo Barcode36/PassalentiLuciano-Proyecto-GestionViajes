@@ -27,6 +27,8 @@ public class Viaje {
     private String duracionFormato;
     private String duracionTotalFormato;
     private Double gastoTotal;
+    private Lugar salida;
+    private Lugar llegada;
     
 //    java.util.Date dt = new java.util.Date();
 //    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -47,7 +49,16 @@ public class Viaje {
         this.duracionFormato = getDuracionEnFormato(duracion);
         this.duracionTotalFormato = getDuracionEnFormato(duracionTotal);
         this.gastoTotal = getGastoTotal(idViaje);
+        this.salida = new Lugar(idSalida);
+        this.llegada = new Lugar(idLlegada);
     }
+    public Lugar getSalida(){
+        return this.salida;
+    }
+    public Lugar getLlegada(){
+        return this.llegada;
+    }
+    
     public Double getGastoTotal(int idViaje){
         return getCostoPeajes()+getCostoCombustible();
     }
@@ -71,7 +82,7 @@ public class Viaje {
         return gastoTotal;
     }
     
-    private String idToNombreLugar(int id){
+    public String idToNombreLugar(int id){
         HashMap<Integer,HashMap<String,Object>> salida = Database.consulta("SELECT * FROM lugar WHERE idLugar = ?", new Object[]{id});
         return (String)salida.get(0).get("ciudad")+"/"+(String)salida.get(0).get("direccion")+" "+(int)salida.get(0).get("nDireccion");
     }

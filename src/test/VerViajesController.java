@@ -54,7 +54,7 @@ public class VerViajesController implements Initializable {
     @FXML
     private Button btnCerrarVentana;
     @FXML
-    private ComboBox<String> cbColumna;
+    private ComboBox<Filtro> cbColumna;
     @FXML
     private Button btnEliminarSeleccionado;
     @FXML
@@ -85,7 +85,6 @@ public class VerViajesController implements Initializable {
     // LISTA DE TODO:
     //  -cuando finaliza la creacion del viaje resetear el cronometro
     
-    //  -Hacer el boton de modificar (Con todos los campos y lanzar la consulta con los datos y recargar la tabla)
     //  -Hacer Css para algunas cosas
     //  -mejorar el filtro con objetos (Hacer que muestren el nombre pero tener un atributo que afecta la busqueda)
     @Override
@@ -94,9 +93,15 @@ public class VerViajesController implements Initializable {
         cargarViajesTabla(viajes);
         tvViajes.setItems(listaViajes);
         
-        ObservableList<String> data = FXCollections.observableArrayList("tipo"); ///Salida llegada tipo
-        cbColumna.setValue(data.get(0));
+        ObservableList<Filtro> data = FXCollections.observableArrayList(); ///Salida llegada tipo
+        Filtro tipo = new Filtro("Tipo", "tipo");
+        data.add(tipo);
+        Filtro salida = new Filtro("Salida", "idSalida");
+        data.add(salida);
+        Filtro llegada = new Filtro("Llegada", "idLlegada");
+        data.add(llegada);
         cbColumna.setItems(data);
+        cbColumna.setValue(data.get(0));
     }
     
     private void cargarViajesTabla(HashMap<Integer,HashMap<String,Object>> items){
@@ -132,13 +137,15 @@ public class VerViajesController implements Initializable {
     }
     @FXML
     private void busqueda(KeyEvent event) {
-        recargarTabla(Database.consulta("SELECT * FROM viaje WHERE "+cbColumna.getItems().get(0)+" LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));
+        if(!cbColumna.getValue().getValue().equals("tipo")){
+             recargarTabla(Database.consulta("SELECT v.idViaje,v.tipo,v.duracion,v.duracionTotal,v.idSalida,v.idLlegada,v.kilometos,v.fechaLlegada,v.fechaSalida FROM viaje v,lugar l WHERE v."+cbColumna.getValue().getValue()+" = l.idLugar AND l.ciudad LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+        }
+        else{
+            recargarTabla(Database.consulta("SELECT * FROM viaje WHERE "+cbColumna.getValue().getValue()+" LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+        }
     }
     @FXML
-    private void verGastos(ActionEvent event){
-        //mostrar el total de todo
-        //hacerle el boton para eliminar
-        
+    private void verGastos(ActionEvent event){        
         if(tvViajes.getSelectionModel().getSelectedItem()!=null){
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("verCostos.fxml"));

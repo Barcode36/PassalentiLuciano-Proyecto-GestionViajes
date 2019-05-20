@@ -5,6 +5,9 @@
  */
 package test;
 
+import java.util.HashMap;
+import model.Database;
+
 /**
  *
  * @author DAW
@@ -21,7 +24,13 @@ public class Lugar {
         this.direccion = direccion;
         this.nDireccion = nDireccion;
     }
-
+    public Lugar(int id){
+        HashMap<Integer,HashMap<String,Object>> salida = Database.consulta("SELECT * FROM lugar WHERE idLugar = ?", new Object[]{id});
+        this.iDlugar = id;
+        this.ciudad = (String)salida.get(0).get("ciudad");
+        this.direccion = (String)salida.get(0).get("direccion");
+        this.nDireccion = (int)salida.get(0).get("nDireccion");
+    }
     @Override
     public String toString() {
         return ciudad + "/" + direccion +" "+ nDireccion;

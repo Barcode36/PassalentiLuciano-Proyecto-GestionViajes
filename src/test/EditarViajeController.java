@@ -50,7 +50,7 @@ public class EditarViajeController implements Initializable{
     public void initialize(URL url, ResourceBundle rb){
         //Datos del tipo de viaje
         ObservableList<String> data = FXCollections.observableArrayList("Lona/Frigo", "Viaje Corto", "Cisterna");
-        tipo.setValue(data.get(0));
+        tipo.setValue(viaje.getTipo());
         tipo.setItems(data);
         //
         cargarLugares();
@@ -69,10 +69,10 @@ public class EditarViajeController implements Initializable{
         ));
         
         salida.setItems(dataPartidas);
-        salida.setValue(dataPartidas.get(0));
+        salida.setValue(viaje.getSalida());
         
         llegada.setItems(dataPartidas);
-        llegada.setValue(dataPartidas.get(0));
+        llegada.setValue(viaje.getLlegada());
     }
     @FXML
     private void aceptar(ActionEvent event){
