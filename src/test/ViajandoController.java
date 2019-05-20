@@ -35,8 +35,8 @@ public class ViajandoController implements Initializable{
     private static int segundos=0,horas=0,minutos=0;
     @FXML
     private Label cronometro;
-    private Timer timer;
-    private TimerTask timerTask;
+    private static Timer timer;
+    private static TimerTask timerTask;
     private static ArrayList<Object[]> gastosCombustible = new ArrayList<Object[]>();
     private static ArrayList<Object[]> peajes = new ArrayList<Object[]>();
     
@@ -81,43 +81,6 @@ public class ViajandoController implements Initializable{
         timer.schedule(timerTask, 0, 1000);
         
     }
-    private void artualizarCronometro(){
-        
-    }
-//    @FXML
-//    private void pausar(){
-//        try {
-//            sleep(2);
-//        } 
-//        catch (InterruptedException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        if(pausado==false){
-//            pausado=true;
-//            btnPausa.setText("Reanudar");
-//            status.setText("PAUSADO");
-//            timer.cancel();
-//        }
-//        else{
-//            pausado=false;
-//            btnPausa.setText("Pausar");
-//            status.setText("ACTIVO");
-//            timer = new Timer();
-//            timer.schedule( new TimerTask() {
-//                @Override
-//                public void run() {
-//                    Platform.runLater(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            segundos++;
-//                            actualizar();
-//                            artualizarCronometro();
-//                        }
-//                    });
-//                }
-//            }, 0, 1000);
-//        }
-//    }
     public void loadData(Object[] data){
         this.data = new Object[data.length+4];
         
@@ -182,7 +145,12 @@ public class ViajandoController implements Initializable{
         // {PRECIO, DATETIME}
     }
     public void cancelTimer(){
-        timer.cancel();
+        ViajandoController.timerTask.cancel();
+        ViajandoController.timer.cancel();
+        segundos=0;
+        minutos=0;
+        horas=0;
+        cronometro.setText("00:00:00");
     }
     public static int getSegundos(){
         return segundos+(minutos*60)+(horas*3600);
@@ -195,7 +163,6 @@ public class ViajandoController implements Initializable{
                 
                 Parent scene = (Parent) loader.load();
                 Stage st = new Stage();
-//                pausar();
                
                 FinalizandoViajeController controller = loader.<FinalizandoViajeController>getController();
                 controller.loadData(

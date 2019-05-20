@@ -83,17 +83,15 @@ public class VerViajesController implements Initializable {
     */
     
     // LISTA DE TODO:
-    //  -cuando finaliza la creacion del viaje resetear el cronometro
     
     //  -Hacer Css para algunas cosas
-    //  -mejorar el filtro con objetos (Hacer que muestren el nombre pero tener un atributo que afecta la busqueda)
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         viajes = Database.consulta("SELECT * FROM viaje");
         cargarViajesTabla(viajes);
         tvViajes.setItems(listaViajes);
         
-        ObservableList<Filtro> data = FXCollections.observableArrayList(); ///Salida llegada tipo
+        ObservableList<Filtro> data = FXCollections.observableArrayList();
         Filtro tipo = new Filtro("Tipo", "tipo");
         data.add(tipo);
         Filtro salida = new Filtro("Salida", "idSalida");
@@ -138,10 +136,10 @@ public class VerViajesController implements Initializable {
     @FXML
     private void busqueda(KeyEvent event) {
         if(!cbColumna.getValue().getValue().equals("tipo")){
-             recargarTabla(Database.consulta("SELECT v.idViaje,v.tipo,v.duracion,v.duracionTotal,v.idSalida,v.idLlegada,v.kilometos,v.fechaLlegada,v.fechaSalida FROM viaje v,lugar l WHERE v."+cbColumna.getValue().getValue()+" = l.idLugar AND l.ciudad LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+            recargarTabla(Database.consulta("SELECT v.idViaje,v.tipo,v.duracion,v.duracionTotal,v.idSalida,v.idLlegada,v.kilometos,v.fechaLlegada,v.fechaSalida FROM viaje v,lugar l WHERE v."+cbColumna.getValue().getValue()+" = l.idLugar AND LOWER(l.ciudad) LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
         }
         else{
-            recargarTabla(Database.consulta("SELECT * FROM viaje WHERE "+cbColumna.getValue().getValue()+" LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+            recargarTabla(Database.consulta("SELECT * FROM viaje WHERE LOWER("+cbColumna.getValue().getValue()+") LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
         }
     }
     @FXML
