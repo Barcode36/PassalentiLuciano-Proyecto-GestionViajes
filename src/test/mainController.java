@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -31,6 +32,8 @@ public class mainController implements Initializable{
     private Button newViaje;
     @FXML
     private Button btnVerViajes;
+    @FXML
+    private AnchorPane ventana;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){

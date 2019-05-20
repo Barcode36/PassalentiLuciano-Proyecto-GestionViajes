@@ -83,8 +83,8 @@ public class VerViajesController implements Initializable {
     */
     
     // LISTA DE TODO:
-    
     //  -Hacer Css para algunas cosas
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         viajes = Database.consulta("SELECT * FROM viaje");
@@ -98,6 +98,10 @@ public class VerViajesController implements Initializable {
         data.add(salida);
         Filtro llegada = new Filtro("Llegada", "idLlegada");
         data.add(llegada);
+        Filtro filtrofechaLlegada = new Filtro("Fecha Llegada", "fechaLlegada");
+        data.add(filtrofechaLlegada);
+        Filtro filtrofechaSalida = new Filtro("Fecha Salida", "fechaSalida");
+        data.add(filtrofechaSalida);
         cbColumna.setItems(data);
         cbColumna.setValue(data.get(0));
     }
@@ -135,11 +139,16 @@ public class VerViajesController implements Initializable {
     }
     @FXML
     private void busqueda(KeyEvent event) {
-        if(!cbColumna.getValue().getValue().equals("tipo")){
-            recargarTabla(Database.consulta("SELECT v.idViaje,v.tipo,v.duracion,v.duracionTotal,v.idSalida,v.idLlegada,v.kilometos,v.fechaLlegada,v.fechaSalida FROM viaje v,lugar l WHERE v."+cbColumna.getValue().getValue()+" = l.idLugar AND LOWER(l.ciudad) LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+        if(!cbColumna.getValue().getValue().equals("fechaLlegada") && !cbColumna.getValue().getValue().equals("fechaSalida")){
+            if(!cbColumna.getValue().getValue().equals("tipo")){
+                recargarTabla(Database.consulta("SELECT v.idViaje,v.tipo,v.duracion,v.duracionTotal,v.idSalida,v.idLlegada,v.kilometos,v.fechaLlegada,v.fechaSalida FROM viaje v,lugar l WHERE v."+cbColumna.getValue().getValue()+" = l.idLugar AND LOWER(l.ciudad) LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+            }
+            else{
+                recargarTabla(Database.consulta("SELECT * FROM viaje WHERE LOWER("+cbColumna.getValue().getValue()+") LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+            }
         }
         else{
-            recargarTabla(Database.consulta("SELECT * FROM viaje WHERE LOWER("+cbColumna.getValue().getValue()+") LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+            recargarTabla(Database.consulta("SELECT * FROM viaje WHERE "+cbColumna.getValue().getValue()+" LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));
         }
     }
     @FXML
