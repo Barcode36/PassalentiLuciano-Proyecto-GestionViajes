@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2019 a las 14:05:41
+-- Tiempo de generación: 20-05-2019 a las 20:57:33
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -37,6 +37,13 @@ CREATE TABLE `combustible` (
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Volcado de datos para la tabla `combustible`
+--
+
+INSERT INTO `combustible` (`idCombustible`, `idViaje`, `litros`, `kilometros`, `precio`, `fecha`) VALUES
+(4, 44, 123, 123, 123, '2019-05-20 20:54:42');
+
 -- --------------------------------------------------------
 
 --
@@ -56,7 +63,8 @@ CREATE TABLE `lugar` (
 
 INSERT INTO `lugar` (`idLugar`, `ciudad`, `direccion`, `nDireccion`) VALUES
 (1, 'Valencia', 'cami reial', 118),
-(4, 'manises', 'micasa', 123);
+(4, 'manises', 'micasa', 123),
+(5, 'Manises', 'Instituto', 12);
 
 -- --------------------------------------------------------
 
@@ -70,6 +78,13 @@ CREATE TABLE `peaje` (
   `costo` double NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `peaje`
+--
+
+INSERT INTO `peaje` (`idPeaje`, `idViaje`, `costo`, `fecha`) VALUES
+(7, 44, 123, '2019-05-20 20:54:40');
 
 -- --------------------------------------------------------
 
@@ -88,6 +103,20 @@ CREATE TABLE `viaje` (
   `fechaLlegada` datetime NOT NULL,
   `fechaSalida` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `viaje`
+--
+
+INSERT INTO `viaje` (`idViaje`, `tipo`, `duracion`, `duracionTotal`, `idSalida`, `idLlegada`, `kilometos`, `fechaLlegada`, `fechaSalida`) VALUES
+(33, 'Lona/Frigo', 3, 4, 1, 1, 2, '2019-05-17 16:26:59', '2019-05-17 16:26:55'),
+(36, 'Cisterna', 11, 5, 1, 4, 11287802, '2019-05-17 16:34:04', '2019-05-17 16:33:59'),
+(38, 'Lona/Frigo', 21, 20, 1, 1, 333333, '2019-05-17 16:41:23', '2019-05-17 16:41:03'),
+(39, 'Viaje Corto', 71, 39, 5, 1, 222222, '2019-05-20 19:46:31', '2019-05-20 19:45:52'),
+(40, 'Cisterna', 84, 26, 5, 4, 10000, '2019-05-20 19:50:39', '2019-05-20 19:50:13'),
+(41, 'Lona/Frigo', 17, 11, 4, 5, 10000, '2019-05-20 19:52:15', '2019-05-20 19:52:04'),
+(43, 'Cisterna', 32, 17, 1, 5, 135000, '2019-05-20 20:03:58', '2019-05-20 20:03:41'),
+(44, 'Lona/Frigo', 27, 10, 1, 4, 5, '2019-05-20 20:54:48', '2019-05-20 20:54:38');
 
 --
 -- Disparadores `viaje`
@@ -140,25 +169,25 @@ ALTER TABLE `viaje`
 -- AUTO_INCREMENT de la tabla `combustible`
 --
 ALTER TABLE `combustible`
-  MODIFY `idCombustible` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idCombustible` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `lugar`
 --
 ALTER TABLE `lugar`
-  MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idLugar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `peaje`
 --
 ALTER TABLE `peaje`
-  MODIFY `idPeaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPeaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `idViaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idViaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- Restricciones para tablas volcadas
