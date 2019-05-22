@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,8 +83,7 @@ public class VerViajesController implements Initializable {
     * Initializes the controller class.
     */
     
-    // LISTA DE TODO:
-    //  -Hacer Css para algunas cosas
+    //BUG: cuando se elimina un viaje por alguna razon se eliminan todos los gastos de los otros viajes
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -179,11 +179,17 @@ public class VerViajesController implements Initializable {
     @FXML
     private void eliminarSelected(ActionEvent event) {
         if(tvViajes.getSelectionModel().getSelectedItem()!=null){
-            Database.insert("DELETE FROM viaje WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Viaje eliminado correctamente");
-            alert.showAndWait();
-            recargarTabla(Database.consulta("SELECT * FROM viaje"));
-            tfBusqueda.setText("");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Esta seguro de Eliminar ese viaje?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK){
+                Database.insert("DELETE FROM peaje WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
+                Database.insert("DELETE FROM combustible WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
+                Database.insert("DELETE FROM viaje WHERE idViaje=?", new Object[]{tvViajes.getSelectionModel().getSelectedItem().getIdViaje()});
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION, "Viaje eliminado correctamente");
+                alert2.showAndWait();
+                recargarTabla(Database.consulta("SELECT * FROM viaje"));
+                tfBusqueda.setText("");
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun viaje seleccionado");
