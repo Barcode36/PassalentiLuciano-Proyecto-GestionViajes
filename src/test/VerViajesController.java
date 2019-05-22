@@ -80,10 +80,7 @@ public class VerViajesController implements Initializable {
     private TableColumn<Viaje, Integer> coste;
     /**
     * Initializes the controller class.
-    */
-    
-    //BUG: cuando se elimina un viaje por alguna razon se eliminan todos los gastos de los otros viajes
-    
+    */ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         viajes = Database.consulta("SELECT * FROM viaje");
@@ -162,6 +159,7 @@ public class VerViajesController implements Initializable {
                 st.initModality(Modality.APPLICATION_MODAL);
                 st.setTitle("Costos");
                 st.setScene(new Scene(scene));
+                st.setResizable(false);
                 st.show();
 
             }
@@ -302,8 +300,8 @@ public class VerViajesController implements Initializable {
                 st.initModality(Modality.APPLICATION_MODAL);
                 st.setTitle("Editar");
                 st.setScene(new Scene(scene));
+                st.setResizable(false);
                 st.show();
-
             }
             catch (IOException ex){
                 Logger.getLogger(VerViajesController.class.getName()).log(Level.SEVERE, null, ex);

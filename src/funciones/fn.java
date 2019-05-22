@@ -25,4 +25,19 @@ public class fn{
         }
         return valido;
     }
+    public static boolean checkDouble(String s){
+        //checkea si es un numero
+        //retorna true si lo es
+        boolean valido;
+        try{
+            Double.parseDouble(s);
+            valido=true;
+        }
+        catch (Exception e){
+            valido=false;
+            System.out.println(e.getMessage());
+        }
+        return valido;
+    }
+    
 }

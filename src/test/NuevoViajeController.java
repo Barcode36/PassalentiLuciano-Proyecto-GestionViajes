@@ -100,6 +100,7 @@ public class NuevoViajeController implements Initializable{
                 });
                 st.setTitle("Viajando");
                 st.setScene(new Scene(scene));
+                st.setResizable(false);
                 st.show();
                 
                 Stage stage = (Stage) kmIniciales.getScene().getWindow();
@@ -130,6 +131,7 @@ public class NuevoViajeController implements Initializable{
             stage.setOnCloseRequest((WindowEvent we) -> {
                 updateSalidaEntrada();
             });
+            stage.setResizable(false);
             stage.show();
         }
         catch (IOException ex){

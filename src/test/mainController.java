@@ -49,7 +49,8 @@ public class mainController implements Initializable{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             stage.setTitle("Nuevo Viaje");
-            stage.setScene(new Scene(root1));   
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
             stage.show();
         }
         catch (Exception ex){
@@ -67,7 +68,8 @@ public class mainController implements Initializable{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             stage.setTitle("Viajes");
-            stage.setScene(new Scene(root1));   
+            stage.setScene(new Scene(root1)); 
+            stage.setResizable(false);
             stage.show();
         }
         catch (Exception ex){

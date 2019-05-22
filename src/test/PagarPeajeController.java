@@ -39,7 +39,7 @@ public class PagarPeajeController implements Initializable{
     }
     @FXML
     private void pagarPeaje(ActionEvent event){
-        if(fn.checkINT(peaje.getText())){
+        if(fn.checkDouble(peaje.getText())){
             try{
                 Stage stage = (Stage) btnAceptar.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));

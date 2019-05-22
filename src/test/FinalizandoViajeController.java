@@ -140,6 +140,7 @@ for (Object[] obj : peajes){
                     });
                     st.setTitle("Finalizado Correctamente");
                     st.setScene(new Scene(scene));
+                    st.setResizable(false);
                     st.show();
                     
                     finalizado = true;

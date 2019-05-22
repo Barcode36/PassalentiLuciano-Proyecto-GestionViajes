@@ -48,7 +48,7 @@ public class ViajandoController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        //start the timer
+        //empieza el cronometro
         timer = new Timer();
         
         timerTask = new TimerTask() {
@@ -110,6 +110,7 @@ public class ViajandoController implements Initializable{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             stage.setTitle("Cargar Combustible");
+            stage.setResizable(false);
             stage.setScene(new Scene(root1));
             
             stage.show();
@@ -128,6 +129,7 @@ public class ViajandoController implements Initializable{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node)event.getTarget()).getScene().getWindow());
             stage.setTitle("Pagar Peaje");
+            stage.setResizable(false);
             stage.setScene(new Scene(root1));
             
             stage.show();
@@ -136,9 +138,9 @@ public class ViajandoController implements Initializable{
             ex.getMessage();
         }
     }
-    public void cargarDataCombustible(Object[] array){
+    public static void cargarDataCombustible(Object[] array){
         gastosCombustible.add(array);
-        //{LITROS, KM, PRECIO, DATETIME};
+        // {LITROS, KM, PRECIO, DATETIME};
     }
     public void cargarDataPeaje(Object[] array){
         peajes.add(array);
@@ -182,6 +184,7 @@ public class ViajandoController implements Initializable{
                 });
                 st.setTitle("Finalizando Viaje");
                 st.setScene(new Scene(scene));
+                st.setResizable(false);
                 st.show();
             }
             catch (IOException ex) {

@@ -44,15 +44,14 @@ public class CargarCombustibleController implements Initializable{
     @FXML
     private void cargarCombustible(ActionEvent event){
         
-        if(fn.checkINT(litros.getText())){
+        if(fn.checkDouble(litros.getText())){
             if(fn.checkINT(km.getText())){
-                if(fn.checkINT(precio.getText())){
+                if(fn.checkDouble(precio.getText())){
                     try{
                         Stage stage = (Stage) btnAceptar.getScene().getWindow();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));
                         Parent root = loader.load();
-                        ViajandoController controller = loader.<ViajandoController>getController();
-                        controller.cargarDataCombustible(new Object[]{litros.getText(),km.getText(), precio.getText(), Database.consulta("SELECT NOW() FROM lugar").get(0).get("NOW()")});
+                        ViajandoController.cargarDataCombustible(new Object[]{litros.getText(),km.getText(), precio.getText(), Database.consulta("SELECT NOW() FROM lugar").get(0).get("NOW()")});
                         stage.close();
                     }
                     catch(Exception e){
