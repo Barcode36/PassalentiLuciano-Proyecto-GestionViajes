@@ -49,8 +49,6 @@ public class CargarCombustibleController implements Initializable{
                 if(fn.checkDouble(precio.getText())){
                     try{
                         Stage stage = (Stage) btnAceptar.getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));
-                        Parent root = loader.load();
                         ViajandoController.cargarDataCombustible(new Object[]{litros.getText(),km.getText(), precio.getText(), Database.consulta("SELECT NOW() FROM lugar").get(0).get("NOW()")});
                         stage.close();
                     }

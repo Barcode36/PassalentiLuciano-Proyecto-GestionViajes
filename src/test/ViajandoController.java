@@ -142,7 +142,7 @@ public class ViajandoController implements Initializable{
         gastosCombustible.add(array);
         // {LITROS, KM, PRECIO, DATETIME};
     }
-    public void cargarDataPeaje(Object[] array){
+    public static void cargarDataPeaje(Object[] array){
         peajes.add(array);
         // {PRECIO, DATETIME}
     }
