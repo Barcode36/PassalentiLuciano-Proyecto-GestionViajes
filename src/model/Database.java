@@ -1,6 +1,12 @@
 package model;
-import java.sql.*;
-import java.util.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.HashMap;
+
 
 public class Database {
 
@@ -10,7 +16,7 @@ public class Database {
 		HashMap<Integer,HashMap<String,Object>> output = new HashMap<Integer,HashMap<String,Object>>();
 		Connection con = startConnection();
 		try {            
-			stmt = con.prepareStatement(statement);
+			stmt = con.prepareStatement(statement+";");
 			rs = stmt.executeQuery();
 		}
 		catch(Exception ex){
@@ -33,7 +39,7 @@ public class Database {
 		HashMap<Integer,HashMap<String,Object>> output = new HashMap<Integer,HashMap<String,Object>>();
 		Connection con = startConnection();
 		try {            
-			stmt = con.prepareStatement(statement);
+			stmt = con.prepareStatement(statement+";");
 			for (int i = 0; i < vars.length; i++) {
 				stmt.setObject(i+1,vars[i]);
 			}
@@ -63,7 +69,7 @@ public class Database {
 		PreparedStatement stmt=null;
                 Connection con = startConnection();
 		try {            
-			stmt = con.prepareStatement(statement);
+			stmt = con.prepareStatement(statement+";");
 			for (int i = 0; i < vars.length; i++) {
 				stmt.setObject(i+1,vars[i]);
 			}
