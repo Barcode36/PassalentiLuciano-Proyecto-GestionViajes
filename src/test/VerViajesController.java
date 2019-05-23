@@ -311,9 +311,6 @@ public class VerViajesController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun viaje seleccionado");
             alert.showAndWait();
         }
-        
     }
-    
-    
     
 }

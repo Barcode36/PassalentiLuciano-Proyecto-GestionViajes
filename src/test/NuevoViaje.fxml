@@ -21,7 +21,7 @@
          <font>
             <Font size="22.0" />
          </font></TextField>
-      <Button layoutX="340.0" layoutY="167.0" mnemonicParsing="false" onAction="#crearDestino" text="Crear Destino" />
-      <Button layoutX="340.0" layoutY="126.0" mnemonicParsing="false" onAction="#crearDestino" text="Crear Destino" />
+      <Button fx:id="btnLlegada" layoutX="340.0" layoutY="167.0" mnemonicParsing="false" onAction="#crearDestino" text="Crear Destino" />
+      <Button fx:id="btnPartida" layoutX="340.0" layoutY="126.0" mnemonicParsing="false" onAction="#crearDestino" text="Crear Destino" />
    </children>
 </AnchorPane>

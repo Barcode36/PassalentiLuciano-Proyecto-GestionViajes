@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="1114.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.VerViajesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="1114.0" stylesheets="@verViajes.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.VerViajesController">
    <children>
       <TableView fx:id="tvViajes" layoutX="23.0" layoutY="52.0" prefHeight="361.0" prefWidth="1072.0">
         <columns>
@@ -30,27 +31,27 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnCrearArchivo" layoutX="179.0" layoutY="421.0" mnemonicParsing="false" onAction="#crearArchivo" prefHeight="37.0" prefWidth="221.0" text="Crear Archivo">
+      <Button id="btnCrearArchivo" fx:id="btnCrearArchivo" layoutX="191.0" layoutY="418.0" mnemonicParsing="false" onAction="#crearArchivo" prefHeight="37.0" prefWidth="168.0" text="Crear Archivo">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btnCerrarVentana" layoutX="1008.0" layoutY="421.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="37.0" prefWidth="76.0" text="Cerrar">
+      <Button id="btnCerrar" fx:id="btnCerrarVentana" layoutX="1004.0" layoutY="418.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="29.0" prefWidth="84.0" text="Cerrar" textFill="WHITE">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminarSeleccionado" layoutX="825.0" layoutY="424.0" mnemonicParsing="false" onAction="#eliminarSelected" text="Eliminar">
+      <Button id="btnEliminar" fx:id="btnEliminarSeleccionado" layoutX="825.0" layoutY="424.0" mnemonicParsing="false" onAction="#eliminarSelected" text="Eliminar">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold" size="15.0" />
          </font></Button>
-      <Button fx:id="btnEditarSeleccionado" layoutX="747.0" layoutY="424.0" mnemonicParsing="false" onAction="#editarViaje" text="Editar">
+      <Button id="btnEditar" fx:id="btnEditarSeleccionado" layoutX="747.0" layoutY="424.0" mnemonicParsing="false" onAction="#editarViaje" text="Editar">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold" size="15.0" />
          </font></Button>
-      <Button fx:id="btnVerGastos" layoutX="638.0" layoutY="424.0" mnemonicParsing="false" onAction="#verGastos" text="Ver gastos">
+      <Button id="btnVerGastos" fx:id="btnVerGastos" layoutX="638.0" layoutY="424.0" mnemonicParsing="false" onAction="#verGastos" text="Ver gastos">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Button>
    </children>

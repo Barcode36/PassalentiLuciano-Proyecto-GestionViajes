@@ -57,7 +57,7 @@ public class CrearDestinoController implements Initializable{
             }
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "El numero de direccion esta mal?");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "El numero de direccion solo acepta enteros");
             alert.showAndWait();
         }
     }

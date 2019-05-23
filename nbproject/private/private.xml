@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/WorkspaceProyecto/Test/src/test/ViajandoController.java</file>
-            <file>file:/G:/WorkspaceProyecto/Test/src/test/mainController.java</file>
-            <file>file:/G:/WorkspaceProyecto/Test/src/test/Viaje.java</file>
-            <file>file:/G:/WorkspaceProyecto/Test/src/test/FinalizandoViajeController.java</file>
-            <file>file:/G:/WorkspaceProyecto/Test/src/test/NuevoViajeController.java</file>
-            <file>file:/G:/WorkspaceProyecto/Test/src/test/EditarViajeController.java</file>
-            <file>file:/G:/WorkspaceProyecto/Test/src/test/VerViajesController.java</file>
+            <file>file:/F:/WorkspaceProyecto/Test/src/test/Viaje.java</file>
+            <file>file:/F:/WorkspaceProyecto/Test/src/test/VerViajesController.java</file>
+            <file>file:/F:/WorkspaceProyecto/Test/src/test/VerCostosController.java</file>
         </group>
     </open-files>
 </project-private>

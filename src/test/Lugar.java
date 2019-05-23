@@ -31,6 +31,12 @@ public class Lugar {
         this.direccion = (String)salida.get(0).get("direccion");
         this.nDireccion = (int)salida.get(0).get("nDireccion");
     }
+    public Lugar(){
+        this.iDlugar = -1;
+        this.ciudad = "Invalido";
+        this.direccion = "Invalido";
+        this.nDireccion = 000;
+    }
     @Override
     public String toString() {
         return ciudad + "/" + direccion +" "+ nDireccion;

@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -45,6 +46,10 @@ public class NuevoViajeController implements Initializable{
     private TextField kmIniciales;
     private HashMap<Integer,HashMap<String,Object>> partidas;
     private HashMap<Integer,HashMap<String,Object>> llegadas;
+    @FXML
+    private Button btnLlegada;
+    @FXML
+    private Button btnPartida;
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -62,17 +67,20 @@ public class NuevoViajeController implements Initializable{
         partidas = Database.consulta("SELECT * FROM lugar");
         
         ObservableList<Lugar> dataPartidas = FXCollections.observableArrayList();
-        
-        partidas.forEach((k,v) -> dataPartidas.add(new Lugar(
-                (int)v.get("idLugar"),
-                (String)v.get("ciudad"),
-                (String)v.get("direccion"),
-                (int)v.get("nDireccion"))
-        ));
-        
+        if(!partidas.isEmpty()){
+            partidas.forEach((k,v) -> dataPartidas.add(new Lugar(
+                    (int)v.get("idLugar"),
+                    (String)v.get("ciudad"),
+                    (String)v.get("direccion"),
+                    (int)v.get("nDireccion"))
+            ));
+        }
+        else{
+            dataPartidas.add(new Lugar());
+        }
         partida.setItems(dataPartidas);
         partida.setValue(dataPartidas.get(0));
-        
+
         llegada.setItems(dataPartidas);
         llegada.setValue(dataPartidas.get(0));
     }
@@ -80,37 +88,41 @@ public class NuevoViajeController implements Initializable{
     private void embarcar(ActionEvent event){
         
         if(fn.checkINT(deformatear(kmIniciales.getText()))){
-            
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));
-                
-                Parent scene = (Parent) loader.load();
-                Stage st = new Stage();
-                
-                ViajandoController controller = loader.<ViajandoController>getController();
-                controller.loadData(new Object[]{
-                    tipoViaje.getValue(),
-                    partida.getValue().getiDlugar(),
-                    llegada.getValue().getiDlugar(),
-                    flip(deformatear(kmIniciales.getText()))
-                });
-                st.initModality(Modality.APPLICATION_MODAL);
-                st.setOnCloseRequest((WindowEvent we) -> {
-                    controller.cancelTimer();
-                });
-                st.setTitle("Viajando");
-                st.setScene(new Scene(scene));
-                st.setResizable(false);
-                st.show();
-                
-                Stage stage = (Stage) kmIniciales.getScene().getWindow();
-                stage.close();
-                
+            if(partida.getValue().getiDlugar()!=-1 && llegada.getValue().getiDlugar()!=-1){
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));
+
+                    Parent scene = (Parent) loader.load();
+                    Stage st = new Stage();
+
+                    ViajandoController controller = loader.<ViajandoController>getController();
+                    controller.loadData(new Object[]{
+                        tipoViaje.getValue(),
+                        partida.getValue().getiDlugar(),
+                        llegada.getValue().getiDlugar(),
+                        flip(deformatear(kmIniciales.getText()))
+                    });
+                    st.initModality(Modality.APPLICATION_MODAL);
+                    st.setOnCloseRequest((WindowEvent we) -> {
+                        controller.cancelTimer();
+                    });
+                    st.setTitle("Viajando");
+                    st.setScene(new Scene(scene));
+                    st.setResizable(false);
+                    st.show();
+
+                    Stage stage = (Stage) kmIniciales.getScene().getWindow();
+                    stage.close();
+
+                }
+                catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
-            catch (IOException ex) {
-                System.out.println(ex.getMessage());
+            else{
+                Alert alert = new Alert(AlertType.ERROR, "La salida/llegada es invalida");
+                alert.showAndWait();
             }
-            
         }
         else{
             Alert alert = new Alert(AlertType.ERROR, "El campo Kilometros no puede contener letras");
