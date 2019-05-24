@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="1114.0" stylesheets="@verViajes.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.VerViajesController">
+   <children>
+      <TableView fx:id="tvViajes" layoutX="23.0" layoutY="52.0" prefHeight="361.0" prefWidth="1072.0">
+        <columns>
+          <TableColumn fx:id="tipo" prefWidth="100.33333587646484" text="Tipo" />
+          <TableColumn fx:id="coste" prefWidth="70.0" text="Coste" />
+            <TableColumn fx:id="duracionTotal" prefWidth="95.0" text="Duracion Total" />
+            <TableColumn fx:id="salida" prefWidth="206.0" text="Salida" />
+            <TableColumn fx:id="llegada" prefWidth="229.66665649414062" text="LLegada" />
+            <TableColumn fx:id="kmRecorridos" prefWidth="89.66665649414062" text="Km Recorridos" />
+            <TableColumn fx:id="fechaLlegada" prefWidth="130.0" text="Fecha Llegada" />
+            <TableColumn fx:id="fechaSalida" prefWidth="148.0" text="Fecha Salida" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tfBusqueda" layoutX="99.0" layoutY="12.0" onKeyReleased="#busqueda">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="cbColumna" layoutX="275.0" layoutY="12.0" prefHeight="29.0" prefWidth="162.0" />
+      <Label layoutX="23.0" layoutY="16.0" text="Busqueda">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button id="btnCrearArchivo" fx:id="btnCrearArchivo" layoutX="191.0" layoutY="418.0" mnemonicParsing="false" onAction="#crearArchivo" prefHeight="37.0" prefWidth="168.0" text="Crear Archivo">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button id="btnCerrar" fx:id="btnCerrarVentana" layoutX="1004.0" layoutY="418.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="29.0" prefWidth="84.0" text="Cerrar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button id="btnEliminar" fx:id="btnEliminarSeleccionado" layoutX="825.0" layoutY="424.0" mnemonicParsing="false" onAction="#eliminarSelected" text="Eliminar">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
+      <Button id="btnEditar" fx:id="btnEditarSeleccionado" layoutX="747.0" layoutY="424.0" mnemonicParsing="false" onAction="#editarViaje" text="Editar">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
+      <Button id="btnVerGastos" fx:id="btnVerGastos" layoutX="638.0" layoutY="424.0" mnemonicParsing="false" onAction="#verGastos" text="Ver gastos">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

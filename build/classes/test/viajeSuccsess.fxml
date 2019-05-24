@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="143.0" prefWidth="327.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.ViajeSuccsessController">
+   <children>
+      <Button fx:id="btnAceptar" layoutX="201.0" layoutY="87.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="39.0" prefWidth="98.0" text="Aceptar">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Label layoutX="120.0" layoutY="42.0" text="Viaje Creado Correctamente">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="88.0" fitWidth="92.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../succsessIcon.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
