@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -99,7 +102,7 @@ public class VerViajesController implements Initializable {
         Filtro filtrofechaSalida = new Filtro("Fecha Salida", "fechaSalida");
         data.add(filtrofechaSalida);
         cbColumna.setItems(data);
-        cbColumna.setValue(data.get(0));
+        cbColumna.setValue(data.get(0));        
     }
     
     private void cargarViajesTabla(HashMap<Integer,HashMap<String,Object>> items){

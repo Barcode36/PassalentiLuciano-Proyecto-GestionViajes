@@ -42,46 +42,27 @@ public class FinalizandoViajeController implements Initializable{
         
     }
     public void loadData(Object[] datosViaje, ArrayList<Object[]> combustible, ArrayList<Object[]> peajes){
-        
-//            System.out.println("--------Datos del viaje:------");
-for (int i = 0; i < datosViaje.length; i++){
-    
-    this.datosViaje[i] = datosViaje[i];
-    
-    
-//                if(datosViaje[i]!=null){
-//                    System.out.println("i: "+i+" ----- "+this.datosViaje[i].toString());
-//                }
-//
-//                if(datosViaje[i]!=null){
-//                    System.out.println("i: "+i+" ----- "+datosViaje[i].toString());
-//                }
-}
+        //            System.out.println("--------Datos del viaje:------");
+        for (int i = 0; i < datosViaje.length; i++){
+            this.datosViaje[i] = datosViaje[i];
+        }
 
-//            System.out.println("--------Cargas de combustible------");
-for (Object[] obj : combustible){
-    //            for (int i = 0; i < obj.length; i++){
-    //                System.out.println(obj[i].toString());
-    //            }
-    this.combustibles.add(obj);
-}
+        //            System.out.println("--------Cargas de combustible------");
+        for (Object[] obj : combustible){
+            this.combustibles.add(obj);
+        }
 
-//            System.out.println("--------Peajes------");
-for (Object[] obj : peajes){
-    //            for (int i = 0; i < obj.length; i++){
-    //                System.out.println(obj[i].toString());
-    //            }
-    this.peajes.add(obj);
-}
-
+        //            System.out.println("--------Peajes------");
+        for (Object[] obj : peajes){
+            this.peajes.add(obj);
+        }
     }
     @FXML
     private void finalizarViaje(ActionEvent event){
-        
-        System.out.println(Integer.getInteger(kmFinales.getText()));
+       
         
         if(fn.checkINT(kmFinales.getText())){
-            if(Integer.valueOf(kmFinales.getText()) > Integer.valueOf(datosViaje[5].toString())){
+            if((Integer.valueOf(kmFinales.getText()) > Integer.valueOf(datosViaje[5].toString())) && (Integer.valueOf(kmFinales.getText()) < 2147483647 )){
                 
                 System.out.println("Segundos del timer: "+ViajandoController.getSegundos());
                 System.out.println("Segundos viajados "+(Long)Database.consulta("Select TIMESTAMPDIFF(SECOND, ?, ?) as duracionTotal FROM lugar", new Object[]{datosViaje[7],Database.consulta("SELECT NOW()").get(0).get("NOW()")}).get(0).get("duracionTotal"));
@@ -149,8 +130,6 @@ for (Object[] obj : peajes){
                 catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-                
-                
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Los kilometros no pueden ser menores a con los que se salieron");
@@ -158,10 +137,9 @@ for (Object[] obj : peajes){
             }
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Solo se admiten numeros enteros");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Solo se admiten numeros enteros y menores a 2,147,483,647");
             alert.showAndWait();
         }
-        
     }
     
     public static boolean getFinalizado() {

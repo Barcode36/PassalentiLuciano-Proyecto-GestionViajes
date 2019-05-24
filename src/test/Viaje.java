@@ -30,9 +30,6 @@ public class Viaje {
     private Lugar salida;
     private Lugar llegada;
     
-//    java.util.Date dt = new java.util.Date();
-//    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//    String currentTime = sdf.format(dt);
     
     public Viaje(int idViaje, String tipo, int duracion, int duracionTotal, int idSalida, int idLlegada, int kilometros, Object fechaLlegada, Object fechaSalida) {
         this.idViaje = idViaje;

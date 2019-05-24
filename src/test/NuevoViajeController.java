@@ -82,13 +82,13 @@ public class NuevoViajeController implements Initializable{
         partida.setValue(dataPartidas.get(0));
 
         llegada.setItems(dataPartidas);
-        llegada.setValue(dataPartidas.get(0));
+        llegada.setValue(dataPartidas.get(dataPartidas.size()-1));
     }
     @FXML
     private void embarcar(ActionEvent event){
         
         if(fn.checkINT(deformatear(kmIniciales.getText()))){
-            if(partida.getValue().getiDlugar()!=-1 && llegada.getValue().getiDlugar()!=-1){
+            if((partida.getValue().getiDlugar()!=-1 && llegada.getValue().getiDlugar()!=-1) || (partida.getValue().getiDlugar()==null && llegada.getValue().getiDlugar() ==null)){
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("viajando.fxml"));
 
