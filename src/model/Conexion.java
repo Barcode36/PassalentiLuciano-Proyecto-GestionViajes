@@ -36,30 +36,17 @@ public class Conexion {
         return con;
     }
     private void loadSQLSchema(){
-        
-        for (int i=0; i < FuncionesFile.getTamanio("G:\\WorkspaceProyecto\\Test\\camion.sql"); i++) {
-            int j=0;
-            String linea = FuncionesFile.leerLineaNumeroArchivo(i,"G:\\WorkspaceProyecto\\Test\\camion.sql");
-            
-            while(j<linea.length()-1){
-                String statement="";
-                while(linea.charAt(j)!=';' && j<linea.length()-1){
-                    statement+=linea.charAt(j);
-                    j++;
-                }
-                statement+=';';
-                statement= statement.replace("'","\"");
-                System.out.println(statement);
-                PreparedStatement s;
-                try {
-                    s = this.con.prepareStatement(statement);
-                    s.execute();
-                }
-                catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-                
+        int size = FuncionesFile.getTamanio("src/camion.sql");
+        for (int i=0; i < size ; i++) {
+            String linea = FuncionesFile.leerLineaNumeroArchivo(i,"src/camion.sql");
+            try {
+                PreparedStatement s = this.con.prepareStatement(linea);
+                s.execute();
             }
+            catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+                
         }
     }
     
