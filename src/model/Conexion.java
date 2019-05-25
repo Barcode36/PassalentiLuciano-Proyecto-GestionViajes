@@ -4,22 +4,21 @@ import java.sql.*;
 
 
 public class Conexion {
+
+    private String url = "jdbc:mysql://localhost:3306/";
+    private String user= "root";
+    private String pass= "";
+    
+    private String db="camion";
     Connection con=null;
     public Connection conectar(){
-        
-        
+  
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url="jdbc:mysql://localhost:3306/camion";
-            String user="root";
-            String pass="";
             try {
-                con = DriverManager.getConnection(url, user, pass);
+                con = DriverManager.getConnection(url+db, user, pass);
             }
             catch (Exception e) {
-                url="jdbc:mysql://localhost:3306/";
-                user="root";
-                pass="";
                 con = DriverManager.getConnection(url, user, pass);
                 PreparedStatement p = con.prepareStatement("CREATE DATABASE IF NOT EXISTS camion");
                 p.execute();
@@ -27,10 +26,9 @@ public class Conexion {
                 p.execute();
                 loadSQLSchema();
             }
-            
         }
         catch(Exception ex){
-            System.out.println("Ha sido imposible crear la conexion"+ex.getMessage());
+            System.out.println("Ha sido imposible crear la conexion "+ex.getMessage());
         }
         
         return con;
@@ -39,6 +37,7 @@ public class Conexion {
         int size = FuncionesFile.getTamanio("src/camion.sql");
         for (int i=0; i < size ; i++) {
             String linea = FuncionesFile.leerLineaNumeroArchivo(i,"src/camion.sql");
+            System.out.println(linea);
             try {
                 PreparedStatement s = this.con.prepareStatement(linea);
                 s.execute();
@@ -46,7 +45,6 @@ public class Conexion {
             catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-                
         }
     }
     
