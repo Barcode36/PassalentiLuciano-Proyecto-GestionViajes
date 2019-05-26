@@ -11,9 +11,12 @@ package funciones;
  */
 public class fn{
     
+    /**
+    * Checkea si es un numero entero
+    * @param s String
+    * @return true si lo es
+    */
     public static boolean checkINT(String s){
-        //checkea si es un numero
-        //retorna true si lo es
         boolean valido;
         try{
             Integer.parseInt(s);
@@ -25,9 +28,13 @@ public class fn{
         }
         return valido;
     }
+    
+    /**
+    * checkea si es un numero double
+    * @param s String
+    * @return true si lo es
+    */
     public static boolean checkDouble(String s){
-        //checkea si es un numero
-        //retorna true si lo es
         boolean valido;
         try{
             Double.parseDouble(s);

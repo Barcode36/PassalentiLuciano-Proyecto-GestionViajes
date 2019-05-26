@@ -36,27 +36,38 @@ public class FinalizandoViajeController implements Initializable{
     private static boolean finalizado = false;
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         
     }
+
+    /**
+     * Cargar Todos los peajes/cargas de combustible y los datos del viaje.
+     * @param datosViaje
+     * @param combustible
+     * @param peajes
+     */
     public void loadData(Object[] datosViaje, ArrayList<Object[]> combustible, ArrayList<Object[]> peajes){
         //            System.out.println("--------Datos del viaje:------");
         for (int i = 0; i < datosViaje.length; i++){
             this.datosViaje[i] = datosViaje[i];
         }
-
         //            System.out.println("--------Cargas de combustible------");
         for (Object[] obj : combustible){
             this.combustibles.add(obj);
         }
-
         //            System.out.println("--------Peajes------");
         for (Object[] obj : peajes){
             this.peajes.add(obj);
         }
     }
+    
+    /**
+    * Chequea que los kilometros finales no sean menores que con los que se inicio, que sea un int valido y Crea el vaije, a continuacion crea todos los peajes y todas las cargas de combustible conrrespondientes al viaje.
+    */
     @FXML
     private void finalizarViaje(ActionEvent event){
        
@@ -142,6 +153,10 @@ public class FinalizandoViajeController implements Initializable{
         }
     }
     
+    /**
+     * Retorna la variable que determina si el viaje finalizo exitosamente o no.
+     * @return boolean
+     */
     public static boolean getFinalizado() {
         return FinalizandoViajeController.finalizado;
     }

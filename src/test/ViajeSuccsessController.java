@@ -26,12 +26,17 @@ public class ViajeSuccsessController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
     
+    /**
+    * Cierra la ventana
+    */
     @FXML
     private void closeWindow(ActionEvent event) {
         Stage stage = (Stage) btnAceptar.getScene().getWindow();

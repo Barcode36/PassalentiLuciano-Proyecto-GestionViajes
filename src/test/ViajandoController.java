@@ -41,7 +41,8 @@ public class ViajandoController implements Initializable{
     private static ArrayList<Object[]> peajes = new ArrayList<Object[]>();
     
     /**
-    Initializes the controller class.
+    *Initializes the controller class.
+    * Se inicia el cronometro.
     * @param url
     * @param rb
     */
@@ -81,6 +82,12 @@ public class ViajandoController implements Initializable{
         timer.schedule(timerTask, 0, 1000);
         
     }
+
+    /**
+     * Carga los datos desde un array de objetos
+     * Es llamado desde la clase de nuevo viaje
+     * @param data
+     */
     public void loadData(Object[] data){
         this.data = new Object[data.length+4];
         
@@ -94,12 +101,15 @@ public class ViajandoController implements Initializable{
         this.data[7] = Database.consulta("SELECT NOW() as fechasalida").get(0).get("fechasalida"); //fecha-hora de salida
         
         
-        /////////
+        //// Muestra los datos por consola /////
         for (Object obj : this.data){
             if(obj!=null)System.out.println(obj.toString());
         }
         //////
     }
+    /**
+    *Muestra la ventana de carga de combustible
+    */
     @FXML
     private void mostrarCargaCombustible(ActionEvent event){
         try{
@@ -119,6 +129,9 @@ public class ViajandoController implements Initializable{
             ex.getMessage();
         }
     }
+    /**
+    * Muestra la ventana de pago de peaje.
+    */
     @FXML
     private void mostrarPagarPeaje(ActionEvent event){
         try{
@@ -138,14 +151,30 @@ public class ViajandoController implements Initializable{
             ex.getMessage();
         }
     }
+
+    /**
+     *  añade al array cargasCombustibles un objeto de tipo Combustible.
+     * @param array
+     */
     public static void cargarDataCombustible(Object[] array){
         gastosCombustible.add(array);
         // {LITROS, KM, PRECIO, DATETIME};
     }
+
+    /**
+     *  añade al array Peajes un objeto de tipo Peaje.
+     * @param array
+     */
     public static void cargarDataPeaje(Object[] array){
         peajes.add(array);
         // {PRECIO, DATETIME}
     }
+
+    /**
+     *  Resetea el tiempo a 0.
+     *  Cancela el task del timer.
+     *  Setea el label del timer a 00:00:00
+     */
     public void cancelTimer(){
         ViajandoController.timerTask.cancel();
         ViajandoController.timer.cancel();
@@ -154,9 +183,20 @@ public class ViajandoController implements Initializable{
         horas=0;
         cronometro.setText("00:00:00");
     }
+
+    /**
+     *  
+     * @return los segundos que lleva contados el cronometro
+     */
     public static int getSegundos(){
         return segundos+(minutos*60)+(horas*3600);
     }
+    /**
+    * Abre la ventana de Ingreso de kilometros finales
+    * Si fue valido y se cierra hace la consulta, cancela el timer y cierra esta ventana
+    *
+    *
+    */
     @FXML
     private void finalizar(ActionEvent event){
         

@@ -40,11 +40,13 @@ public class EditarViajeController implements Initializable{
     private ComboBox<Lugar> llegada;
     @FXML
     private TextField kilometros;
-    
     private static Viaje viaje;
     private HashMap<Integer,HashMap<String,Object>> lugares;
+    
     /**
     Initializes the controller class.
+     * @param url
+     * @param rb
     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -57,6 +59,10 @@ public class EditarViajeController implements Initializable{
         
         kilometros.setText(""+viaje.getKilometros());
     }
+    
+    /**
+    * Carga la lista de salida/llegada y selecciona el que tenia el viaje.
+    */
     private void cargarLugares(){
         lugares = Database.consulta("SELECT * FROM lugar");
         ObservableList<Lugar> dataPartidas = FXCollections.observableArrayList();
@@ -74,6 +80,11 @@ public class EditarViajeController implements Initializable{
         llegada.setItems(dataPartidas);
         llegada.setValue(viaje.getLlegada());
     }
+    
+    /**
+    * Hace la consulta que modifica los datos del viaje si son correctos y cierra la ventana de modificacion.
+    * 
+    */
     @FXML
     private void aceptar(ActionEvent event){
         // checkear que los km sean validos y enviar la consulta
@@ -102,6 +113,11 @@ public class EditarViajeController implements Initializable{
         }
         
     }
+    
+    /**
+    * Cierra la ventana.
+    * 
+    */
     @FXML
     private void cerrar(ActionEvent event){
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
@@ -113,6 +129,11 @@ public class EditarViajeController implements Initializable{
         );
         stage.close();
     }
+
+    /**
+     * Setea el viaje en la ventana de modificacion.
+     * @param v
+     */
     public static void cargarViaje(Viaje v){
         viaje = v;
     }

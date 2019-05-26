@@ -54,6 +54,8 @@ public class VerCostosController implements Initializable{
     private HashMap<Integer,HashMap<String,Object>> cargasCombus = new HashMap<Integer,HashMap<String,Object>>();
     /**
     Initializes the controller class.
+     * @param url
+     * @param rb
     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -61,9 +63,18 @@ public class VerCostosController implements Initializable{
         costoTotalPeajes.setText(""+viaje.getCostoPeajes());
         costoTotalCombustibles.setText(""+viaje.getCostoCombustible());
     }
+
+    /**
+     * Asigna un viaje a esta clase.
+     * @param v (Viaje)
+     */
     public static void cargarViaje(Viaje v){
        viaje = v;
     }
+    
+    /**
+    * Carga las 2 tablas con los peajes y los combustibles del viaje.
+    */
     private void cargarDatos(){
         peajes = Database.consulta("SELECT * FROM peaje WHERE idViaje=?", new Object[]{viaje.getIdViaje()});
         cargarTablaPeajes(peajes);
@@ -74,6 +85,10 @@ public class VerCostosController implements Initializable{
         tvCombus.setItems(listaCombustibles);
         
     }
+    
+    /**
+    * Setea los peajes a la tabla peaje.
+    */
     private void cargarTablaPeajes(HashMap<Integer,HashMap<String,Object>> items){
         // crear la observable list
         listaPeajes = FXCollections.observableArrayList();
@@ -90,6 +105,9 @@ public class VerCostosController implements Initializable{
         fechaPeaje.setCellValueFactory(new PropertyValueFactory<Peaje,Object>("fecha"));
     }
     
+    /**
+    * Setea los combustibles al tableview de combustibles.
+    */
     private void cargarTablaCombustibles(HashMap<Integer,HashMap<String,Object>> items){
         listaCombustibles = FXCollections.observableArrayList();
 
@@ -110,6 +128,9 @@ public class VerCostosController implements Initializable{
  
     }
     
+    /**
+    * Cierra la ventana.
+    */
     @FXML
     private void cerrar(ActionEvent event){
         Stage stage = (Stage) costoTotalPeajes.getScene().getWindow();     

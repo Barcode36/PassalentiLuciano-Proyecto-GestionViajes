@@ -14,9 +14,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -83,6 +80,11 @@ public class VerViajesController implements Initializable {
     private TableColumn<Viaje, Integer> coste;
     /**
     * Initializes the controller class.
+     * @param url
+     * @param rb
+     * 
+     * Carga la tabla con todos los viajes disponibels en la bd
+     * Crea los objetos de tipo filtro y los añade al combobox de filtros
     */ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,7 +106,11 @@ public class VerViajesController implements Initializable {
         cbColumna.setItems(data);
         cbColumna.setValue(data.get(0));        
     }
-    
+    /**
+    * Carga en la tabla los viajes
+    * @param HashMap<Integer,HashMap<String,Object>>
+    * Utiliza el tipo de parametro que retorna la libreria Database
+    */
     private void cargarViajesTabla(HashMap<Integer,HashMap<String,Object>> items){
         // crear la observable list
         listaViajes = FXCollections.observableArrayList();
@@ -131,11 +137,21 @@ public class VerViajesController implements Initializable {
         fechaLlegada.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaLlegada"));
         fechaSalida.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaSalida"));
     }
+    /**
+    * Limpia la tabla.
+    * Carga la tabla con una consulta a la tabla de viajes.
+    * @param items.
+    */
     private void recargarTabla(HashMap<Integer,HashMap<String,Object>> items){
         listaViajes.clear();
         cargarViajesTabla(items);
         tvViajes.setItems(listaViajes);
     }
+    /**
+    * Recarga la tabla con el campo de busqueda dependiendo de que filtro este seleccionado.
+    * Hace una consulta con un like.
+    * Lo compara con el campo selecionado en MINUSCULAS
+    */
     @FXML
     private void busqueda(KeyEvent event) {
         if(!cbColumna.getValue().getValue().equals("fechaLlegada") && !cbColumna.getValue().getValue().equals("fechaSalida")){
@@ -150,6 +166,11 @@ public class VerViajesController implements Initializable {
             recargarTabla(Database.consulta("SELECT * FROM viaje WHERE "+cbColumna.getValue().getValue()+" LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));
         }
     }
+    
+    /**
+    * Muestra una venta con los gastos del viaje con 2 table views.
+    * siempre y cuando haya un viaje selecionado.
+    */
     @FXML
     private void verGastos(ActionEvent event){        
         if(tvViajes.getSelectionModel().getSelectedItem()!=null){
@@ -176,6 +197,9 @@ public class VerViajesController implements Initializable {
         }
     }
     
+    /**
+    * Muestra una venta de confirmacion para eliminar el viaje selecionado, y si se presiono aceptar elimina todos sus peajes, combustibles y finalmente el viaje en si.
+    */
     @FXML
     private void eliminarSelected(ActionEvent event) {
         if(tvViajes.getSelectionModel().getSelectedItem()!=null){
@@ -197,6 +221,9 @@ public class VerViajesController implements Initializable {
         }
     }
     
+    /**
+    * Muestra una ventana de donde se quiere guardar el archivo, y genera un html(una tabla) con los viajes que se esten visualizando en ese momento.
+    */
     @FXML
     private void crearArchivo(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -282,12 +309,18 @@ public class VerViajesController implements Initializable {
         }
         
     }
-    
+    /**
+    * Cierra la ventana.
+    */
     @FXML
     private void cerrarVentana(ActionEvent event) {
         Stage stage = (Stage) btnCerrarVentana.getScene().getWindow();
         stage.close();
     }
+    
+    /**
+    * Muestra la ventana de edicion con los datos del viaje selecionado para editarlo, siempre y cuando haya un viaje selecionado.
+    */
     @FXML
     private void editarViaje(ActionEvent event){
                 

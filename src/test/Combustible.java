@@ -17,6 +17,15 @@ public class Combustible{
     private double precio;
     private Object fecha;
     
+    /**
+     *
+     * @param idCombustible
+     * @param idViaje
+     * @param litros
+     * @param kilometros
+     * @param precio
+     * @param fecha
+     */
     public Combustible(int idCombustible, int idViaje, double litros, int kilometros, double precio, Object fecha){
         this.idCombustible = idCombustible;
         this.idViaje = idViaje;
@@ -26,21 +35,50 @@ public class Combustible{
         this.fecha = fecha;
     }
     
+    /**
+     * 
+     * @return int
+     */
     public int getIdCombustible(){
         return idCombustible;
     }
+
+    /**
+     *
+     * @return int
+     */
     public int getIdViaje(){
         return idViaje;
     }
+
+    /**
+     *
+     * @return double
+     */
     public double getLitros(){
         return litros;
     }
+
+    /**
+     *
+     * @return int
+     */
     public int getKilometros(){
         return kilometros;
     }
+
+    /**
+     *
+     * @return double
+     */
     public double getPrecio(){
         return precio;
     }
+
+    /**
+     *
+     * @return datetime
+     */
     public Object getFecha(){
         return fecha;
     }

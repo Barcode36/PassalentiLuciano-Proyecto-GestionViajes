@@ -35,11 +35,17 @@ public class CrearDestinoController implements Initializable{
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         // TODO
     }
+    
+    /**
+    * Crea el destino en la bd si los datos son correctos.
+    */
     @FXML
     private void crearDestino(ActionEvent event){
         

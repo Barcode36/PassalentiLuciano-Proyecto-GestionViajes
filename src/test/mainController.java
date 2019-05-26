@@ -19,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
 
@@ -39,6 +38,11 @@ public class mainController implements Initializable{
     public void initialize(URL url, ResourceBundle rb){
 
     }
+    
+    /**
+    * Abre la ventana de nuevo viaje
+    *
+    */
     @FXML
     private void openVentanaViaje(ActionEvent event){
         try{
@@ -57,7 +61,10 @@ public class mainController implements Initializable{
             ex.getMessage();
         }
     }
-
+    /**
+    * Abre la ventana de vista de los viajes
+    *
+    */
     @FXML
     private void openVentanaVerViajes(ActionEvent event) {
         try{

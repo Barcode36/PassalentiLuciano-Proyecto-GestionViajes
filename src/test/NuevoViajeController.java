@@ -51,6 +51,10 @@ public class NuevoViajeController implements Initializable{
     @FXML
     private Button btnPartida;
     
+    
+    /**
+    * Carga los tipos de viaje y carga las posibles salidas/destinos.
+    */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //Datos del tipo de viaje
@@ -58,10 +62,12 @@ public class NuevoViajeController implements Initializable{
         tipoViaje.setValue(data.get(0));
         tipoViaje.setItems(data);
         //
-        
-        updateSalidaEntrada();
-        
+        updateSalidaEntrada(); 
     }
+
+    /**
+     * carga las posibles salidas/destinos, si no existen en la bd crea una default.
+     */
     public void updateSalidaEntrada(){
         //Datos de partida
         partidas = Database.consulta("SELECT * FROM lugar");
@@ -84,6 +90,11 @@ public class NuevoViajeController implements Initializable{
         llegada.setItems(dataPartidas);
         llegada.setValue(dataPartidas.get(dataPartidas.size()-1));
     }
+    
+    /**
+    * Si todos los datos son correctos, abre la ventana de viajando con los datos correspondientes.
+    *
+    */
     @FXML
     private void embarcar(ActionEvent event){
         
@@ -129,6 +140,10 @@ public class NuevoViajeController implements Initializable{
             alert.showAndWait();
         }
     }
+    
+    /**
+    * Abre la ventana para crear destino y al cerrar recarga los comboBox de salida/llegada.
+    */
     @FXML
     private void crearDestino(ActionEvent event){
         try{
@@ -152,6 +167,9 @@ public class NuevoViajeController implements Initializable{
         
     }
     
+    /**
+    * Agrega los "." cada 3 caracteres del input de kilometros.
+    */
     @FXML
     private void formatear(){
         String texto = deformatear(kmIniciales.getText());
@@ -168,6 +186,10 @@ public class NuevoViajeController implements Initializable{
         kmIniciales.positionCaret(kmIniciales.getText().length());
     }
     
+    /**
+    * Quita los "." de un String.
+    * @return String
+    */
     private String deformatear(String input){
         String output="";
         for (int i = input.length(); i > 0; i--){
@@ -177,6 +199,11 @@ public class NuevoViajeController implements Initializable{
         }
         return output;
     }
+    
+    /**
+    * Flipea un String "1234" => "4321".
+    * @return String.
+    */
     private String flip(String text){
         String fliped="";
         for (int i = text.length(); i > 0 ; i--){
