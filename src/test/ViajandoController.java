@@ -43,8 +43,6 @@ public class ViajandoController implements Initializable{
     /**
     *Initializes the controller class.
     * Se inicia el cronometro.
-    * @param url
-    * @param rb
     */
     
     @Override
@@ -86,7 +84,7 @@ public class ViajandoController implements Initializable{
     /**
      * Carga los datos desde un array de objetos
      * Es llamado desde la clase de nuevo viaje
-     * @param data
+     * @param data Object[]
      */
     public void loadData(Object[] data){
         this.data = new Object[data.length+4];
@@ -153,8 +151,8 @@ public class ViajandoController implements Initializable{
     }
 
     /**
-     *  añade al array cargasCombustibles un objeto de tipo Combustible.
-     * @param array
+     *  Añade al array cargasCombustibles un objeto de tipo Combustible.
+     * @param array Array con los datos del combustible
      */
     public static void cargarDataCombustible(Object[] array){
         gastosCombustible.add(array);
@@ -162,8 +160,8 @@ public class ViajandoController implements Initializable{
     }
 
     /**
-     *  añade al array Peajes un objeto de tipo Peaje.
-     * @param array
+     *  Añade al array Peajes un objeto de tipo Peaje.
+     * @param array Array con los datos de los peajes
      */
     public static void cargarDataPeaje(Object[] array){
         peajes.add(array);

@@ -1,8 +1,3 @@
-/*
- To change this license header, choose License Headers in Project Properties.
- To change this template file, choose Tools | Templates
- and open the template in the editor.
- */
 package test;
 
 /**
@@ -17,10 +12,10 @@ public class Peaje{
     
     /**
      *
-     * @param idPeaje
-     * @param idViaje
-     * @param costo
-     * @param fecha
+     * @param idPeaje int id que corresponde al peaje
+     * @param idViaje int id del viaje que le corresponde en la bd
+     * @param costo double costo
+     * @param fecha Object datetime en el que fue efectuado
      */
     public Peaje(int idPeaje, int idViaje, double costo, Object fecha){
         this.idPeaje = idPeaje;
@@ -39,26 +34,10 @@ public class Peaje{
 
     /**
      *
-     * @param idPeaje
-     */
-    public void setIdPeaje(int idPeaje){
-        this.idPeaje = idPeaje;
-    }
-
-    /**
-     *
      * @return
      */
     public int getIdViaje(){
         return idViaje;
-    }
-
-    /**
-     *
-     * @param idViaje
-     */
-    public void setIdViaje(int idViaje){
-        this.idViaje = idViaje;
     }
 
     /**
@@ -71,26 +50,10 @@ public class Peaje{
 
     /**
      *
-     * @param costo
-     */
-    public void setCosto(double costo){
-        this.costo = costo;
-    }
-
-    /**
-     *
      * @return
      */
     public Object getFecha(){
         return fecha;
-    }
-
-    /**
-     *
-     * @param fecha
-     */
-    public void setFecha(Object fecha){
-        this.fecha = fecha;
     }
     
     

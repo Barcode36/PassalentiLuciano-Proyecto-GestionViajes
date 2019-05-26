@@ -11,12 +11,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ *
+ * @author Luciano
+ */
 public class FuncionesFile {
     
     /**
     * Añade una linea de texto a un archivo.
-    * @param String path
-    * @param String texto
+     * @param path path del archivo
+     * @param texto String del texto a añadir
     */
     public static void aniadirStringArchivo(String path, String texto) {
         FileWriter fichero = null;
@@ -43,8 +47,8 @@ public class FuncionesFile {
 
     /**
     * Retorna la lina N de un archivo.
-    * @param int numero de linea
-    * @param String path del archivo
+     * @param i linea
+     * @param path path del archivo
     * @return String linea de texto.
     */
     public static String leerLineaNumeroArchivo(int i, String path) {
@@ -83,8 +87,8 @@ public class FuncionesFile {
     }
     /**
     * Crea un archivo con las lineas que esten en el array de Strings.
-    * @param String[] lineas a escribir
-    * @param String path del archivo
+     * @param arrString Array de Strings
+     * @param path String path
     */
     public static void crearArchivoArrStr(String[] arrString, String path) {
         FileWriter fichero = null;
@@ -109,7 +113,7 @@ public class FuncionesFile {
     
     /**
     * Retorna la cantidad de lineas de un archivo.
-    * @param String path del archivo
+     * @param path path del archivo
     * @return int cantidad de lineas
     */
     public static int getTamanio(String path) {
@@ -147,8 +151,8 @@ public class FuncionesFile {
     }
     /**
     * Crea un directorio en el path especificado.
-    * @param String path del archivo
-    * @return boolean exito=> true
+     * @param path path del archivo
+    * @return boolean true si fue exitoso
     */
     public static boolean crearDirectorio(String path) {
         boolean funciono= false;
@@ -162,6 +166,12 @@ public class FuncionesFile {
         return funciono;
 
     }
+
+    /**
+     * Retorna File o null si no se pudo abrir.
+     * @param path path del archivo
+     * @return Archivo o null si fallo
+     */
     public static File abrirArchivo(String path) {
         File archivo = null;
         if((archivo = new File (path)).exists()) {
@@ -170,10 +180,10 @@ public class FuncionesFile {
     }
     
     /**
-    * Borra de forma recursiva un directorio o un archivo
-    * @param String path del archivo
+    * Borra de forma recursiva un directorio o un archivo.
+    * @param path path del archivo
     */
-    public static void  borrarDirectorio(String path) { // Borra tanto directorios como archivos en 
+    public static void  borrarDirectorio(String path) {
         File[] ficheros = abrirArchivo(path).listFiles();
         System.out.println(ficheros.length);
 

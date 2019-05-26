@@ -36,8 +36,6 @@ public class FinalizandoViajeController implements Initializable{
     private static boolean finalizado = false;
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -46,9 +44,9 @@ public class FinalizandoViajeController implements Initializable{
 
     /**
      * Cargar Todos los peajes/cargas de combustible y los datos del viaje.
-     * @param datosViaje
-     * @param combustible
-     * @param peajes
+     * @param datosViaje Object[] 
+     * @param combustible ArrayList Combustible 
+     * @param peajes ArrayList Peaje
      */
     public void loadData(Object[] datosViaje, ArrayList<Object[]> combustible, ArrayList<Object[]> peajes){
         //            System.out.println("--------Datos del viaje:------");

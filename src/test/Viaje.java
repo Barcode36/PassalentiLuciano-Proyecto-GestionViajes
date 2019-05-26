@@ -32,15 +32,15 @@ public class Viaje {
     
     /**
      *
-     * @param idViaje
-     * @param tipo
-     * @param duracion
-     * @param duracionTotal
-     * @param idSalida
-     * @param idLlegada
-     * @param kilometros
-     * @param fechaLlegada
-     * @param fechaSalida
+     * @param idViaje int
+     * @param tipo String
+     * @param duracion int
+     * @param duracionTotal int
+     * @param idSalida int 
+     * @param idLlegada int 
+     * @param kilometros int 
+     * @param fechaLlegada Object
+     * @param fechaSalida Object
      */
     public Viaje(int idViaje, String tipo, int duracion, int duracionTotal, int idSalida, int idLlegada, int kilometros, Object fechaLlegada, Object fechaSalida) {
         this.idViaje = idViaje;
@@ -79,7 +79,7 @@ public class Viaje {
     
     /**
      *
-     * @param idViaje
+     * @param idViaje Double da el gasto total de un viaje dado el id
      * @return La suma de todos los peajes y todas las cargas de combustible del viaje dado un id
      */
     public Double getGastoTotal(int idViaje){
@@ -121,8 +121,8 @@ public class Viaje {
     }
     
     /**
-     *
-     * @param id
+     *  Retorna el nombre del lugar dado un idLugar
+     * @param id int idLugar
      * @return la ciudad/direccion nDireccion de un lugar dado un id
      */
     public String idToNombreLugar(int id){
@@ -148,7 +148,7 @@ public class Viaje {
     
     /**
      *
-     * @param segundos
+     * @param segundos String retorna la duracion del viaje en el formato de hh:mm:ss
      * @return convierte segundos a (hh:mm:ss)
      */
     public String getDuracionEnFormato(int segundos){
@@ -262,7 +262,7 @@ public class Viaje {
     
     /**
      *
-     * @param idViaje
+     * @param idViaje int setea el id del viaje
      */
     public void setIdViaje(int idViaje) {
         this.idViaje = idViaje;
@@ -270,15 +270,15 @@ public class Viaje {
     
     /**
      *
-     * @param tipo
+     * @param tipo String setea el tipo
      */
-    public void setTipo(String tipo) {
+    public void setTipo(String tipo) { 
         this.tipo = tipo;
     }
     
     /**
      *
-     * @param duracion
+     * @param duracion int setea el tiempo en segundos
      */
     public void setDuracion(int duracion) {
         this.duracion = duracion;
@@ -286,7 +286,7 @@ public class Viaje {
     
     /**
      *
-     * @param duracionTotal
+     * @param duracionTotal int setea la duracionTotal a segundos
      */
     public void setDuracionTotal(int duracionTotal) {
         this.duracionTotal = duracionTotal;
@@ -294,7 +294,7 @@ public class Viaje {
     
     /**
      *
-     * @param idSalida
+     * @param idSalida int setea el id del lugar de salida
      */
     public void setIdSalida(int idSalida) {
         this.idSalida = idSalida;
@@ -302,7 +302,7 @@ public class Viaje {
     
     /**
      *
-     * @param idLlegada
+     * @param idLlegada int setea el id del lugar de llegada
      */
     public void setIdLlegada(int idLlegada) {
         this.idLlegada = idLlegada;
@@ -310,7 +310,7 @@ public class Viaje {
     
     /**
      *
-     * @param kilometros
+     * @param kilometros int setea los kilometros del viaje
      */
     public void setKilometros(int kilometros) {
         this.kilometros = kilometros;
@@ -318,7 +318,7 @@ public class Viaje {
     
     /**
      *
-     * @param fechaLlegada
+     * @param fechaLlegada Datetime seta la fecha de llegada
      */
     public void setFechaLlegada(Object fechaLlegada) {
         this.fechaLlegada = fechaLlegada;
@@ -326,7 +326,7 @@ public class Viaje {
     
     /**
      *
-     * @param fechaSalida
+     * @param fechaSalida Datetime seta la fecha de salida
      */
     public void setFechaSalida(Object fechaSalida) {
         this.fechaSalida = fechaSalida;

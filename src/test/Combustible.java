@@ -18,13 +18,13 @@ public class Combustible{
     private Object fecha;
     
     /**
-     *
-     * @param idCombustible
-     * @param idViaje
-     * @param litros
-     * @param kilometros
-     * @param precio
-     * @param fecha
+     * Constructor.
+     * @param idCombustible int que reprensenta su id en la bd.
+     * @param idViaje int que reprensenta el id en la bd que hace referencia al viaje con el que se relaciona.
+     * @param litros double que representa la cant de litros.
+     * @param kilometros int que representa los kilometros.
+     * @param precio double que representa el precio
+     * @param fecha Objeto datetime que representa la fecha
      */
     public Combustible(int idCombustible, int idViaje, double litros, int kilometros, double precio, Object fecha){
         this.idCombustible = idCombustible;

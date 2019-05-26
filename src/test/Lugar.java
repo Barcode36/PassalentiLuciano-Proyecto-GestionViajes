@@ -20,10 +20,10 @@ public class Lugar {
 
     /**
      *
-     * @param iDlugar
-     * @param ciudad
-     * @param direccion
-     * @param nDireccion
+     * @param iDlugar int id del lugar
+     * @param ciudad String nombre de la cuidad
+     * @param direccion String direccion
+     * @param nDireccion int numero de la direccion
      */
     public Lugar(int iDlugar, String ciudad, String direccion, int nDireccion) {
         this.iDlugar = iDlugar;
@@ -34,7 +34,7 @@ public class Lugar {
 
     /**
      * Construye un lugar con un id.
-     * @param id
+     * @param id id de un lugar de la bd
      */
     public Lugar(int id){
         HashMap<Integer,HashMap<String,Object>> salida = Database.consulta("SELECT * FROM lugar WHERE idLugar = ?", new Object[]{id});
@@ -97,7 +97,7 @@ public class Lugar {
 
     /**
      *
-     * @param iDlugar
+     * @param iDlugar  id del lugar
      */
     public void setiDlugar(int iDlugar) {
         this.iDlugar = iDlugar;
@@ -105,7 +105,7 @@ public class Lugar {
 
     /**
      *
-     * @param ciudad
+     * @param ciudad String ciudad
      */
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
@@ -113,7 +113,7 @@ public class Lugar {
 
     /**
      *
-     * @param direccion
+     * @param direccion String direccion
      */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
@@ -121,7 +121,7 @@ public class Lugar {
 
     /**
      *
-     * @param nDireccion
+     * @param nDireccion int Numero de la direccion
      */
     public void setnDireccion(int nDireccion) {
         this.nDireccion = nDireccion;

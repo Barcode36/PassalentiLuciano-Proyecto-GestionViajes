@@ -30,8 +30,6 @@ public class PagarPeajeController implements Initializable{
     
     /**
     Initializes the controller class.
-     * @param url
-     * @param rb
     */
     @Override
     public void initialize(URL url, ResourceBundle rb){

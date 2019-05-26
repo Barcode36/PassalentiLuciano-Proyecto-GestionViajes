@@ -17,6 +17,7 @@ public class Conexion {
     
     /**
     * Intententa realizar una connecion con la base de datos, de ser imposible crea la bd camion y la reallena de datos pre-existentes en el archivo src/camion.sql.
+    * @return Connection
     */
     public Connection conectar(){
         try{
@@ -60,6 +61,7 @@ public class Conexion {
     
     /**
     * Cierra la connecion con la bd.
+    * @param con Connection
     */
     public static void desconectar(Connection con){
         try{

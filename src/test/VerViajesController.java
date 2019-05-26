@@ -80,8 +80,6 @@ public class VerViajesController implements Initializable {
     private TableColumn<Viaje, Integer> coste;
     /**
     * Initializes the controller class.
-     * @param url
-     * @param rb
      * 
      * Carga la tabla con todos los viajes disponibels en la bd
      * Crea los objetos de tipo filtro y los añade al combobox de filtros

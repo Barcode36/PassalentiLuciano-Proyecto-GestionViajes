@@ -12,8 +12,8 @@ public class Database {
 
     /**
     * Realiza una consulta a la bd.
-    * @param String statement
-    * @return HashMap<Integer,HashMap<String,Object>>
+    * @param statement String
+    * @return HashMap Integer,HashMap String,Object
     */
     public static HashMap<Integer,HashMap<String,Object>> consulta(String statement) {
         PreparedStatement stmt=null;
@@ -42,9 +42,9 @@ public class Database {
     /**
     * Realiza una consulta a la bd con un array de parametros de tipo objeto.
     * 
-    * @param String statement
-    * @param Object[] vars
-    * @return HashMap<Integer,HashMap<String,Object>>
+    * @param statement String consulta
+    * @param vars Object[] variables de la consulta
+    * @return HashMap Integer,HashMap String,Object
     */
     public static HashMap<Integer,HashMap<String,Object>> consulta(String statement, Object[] vars) {
         PreparedStatement stmt=null;
@@ -81,6 +81,8 @@ public class Database {
 
     /**
     * Funciona tanto para inserciones/deletes y updates
+    * @param vars Object[] Variables de la consulta
+    * @param statement String consulta
     */
     public static void insert(String statement, Object[] vars) {
         PreparedStatement stmt=null;
@@ -107,6 +109,7 @@ public class Database {
 
     /**
     * Convierte de resultSet a HashMap<Integer,HashMap<String,Object>> 
+    * @param rs ResultSet
     * @return HashMap<Integer,HashMap<String,Object>>
     */
     private static HashMap<Integer,HashMap<String,Object>> convertResultSetToHashMap(ResultSet rs) throws SQLException {

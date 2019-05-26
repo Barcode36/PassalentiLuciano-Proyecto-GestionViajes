@@ -52,10 +52,9 @@ public class VerCostosController implements Initializable{
     private static Viaje viaje;
     private HashMap<Integer,HashMap<String,Object>> peajes = new HashMap<Integer,HashMap<String,Object>>();
     private HashMap<Integer,HashMap<String,Object>> cargasCombus = new HashMap<Integer,HashMap<String,Object>>();
+    
     /**
     Initializes the controller class.
-     * @param url
-     * @param rb
     */
     @Override
     public void initialize(URL url, ResourceBundle rb){

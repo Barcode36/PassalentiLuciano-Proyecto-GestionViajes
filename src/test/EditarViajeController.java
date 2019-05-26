@@ -45,8 +45,6 @@ public class EditarViajeController implements Initializable{
     
     /**
     Initializes the controller class.
-     * @param url
-     * @param rb
     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -132,7 +130,7 @@ public class EditarViajeController implements Initializable{
 
     /**
      * Setea el viaje en la ventana de modificacion.
-     * @param v
+     * @param v Viaje
      */
     public static void cargarViaje(Viaje v){
         viaje = v;
