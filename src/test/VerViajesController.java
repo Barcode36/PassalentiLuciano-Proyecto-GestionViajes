@@ -104,6 +104,7 @@ public class VerViajesController implements Initializable {
         cbColumna.setItems(data);
         cbColumna.setValue(data.get(0));        
     }
+    
     /**
     * Carga en la tabla los viajes
     * @param HashMap<Integer,HashMap<String,Object>>
@@ -135,6 +136,7 @@ public class VerViajesController implements Initializable {
         fechaLlegada.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaLlegada"));
         fechaSalida.setCellValueFactory(new PropertyValueFactory<Viaje,Object>("fechaSalida"));
     }
+    
     /**
     * Limpia la tabla.
     * Carga la tabla con una consulta a la tabla de viajes.
@@ -145,6 +147,7 @@ public class VerViajesController implements Initializable {
         cargarViajesTabla(items);
         tvViajes.setItems(listaViajes);
     }
+    
     /**
     * Recarga la tabla con el campo de busqueda dependiendo de que filtro este seleccionado.
     * Hace una consulta con un like.
@@ -154,7 +157,7 @@ public class VerViajesController implements Initializable {
     private void busqueda(KeyEvent event) {
         if(!cbColumna.getValue().getValue().equals("fechaLlegada") && !cbColumna.getValue().getValue().equals("fechaSalida")){
             if(!cbColumna.getValue().getValue().equals("tipo")){
-                recargarTabla(Database.consulta("SELECT v.idViaje,v.tipo,v.duracion,v.duracionTotal,v.idSalida,v.idLlegada,v.kilometos,v.fechaLlegada,v.fechaSalida FROM viaje v,lugar l WHERE v."+cbColumna.getValue().getValue()+" = l.idLugar AND LOWER(l.ciudad) LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   
+                recargarTabla(Database.consulta("SELECT distinct(v.idViaje),v.tipo,v.duracion,v.duracionTotal,v.idSalida,v.idLlegada,v.kilometos,v.fechaLlegada,v.fechaSalida FROM viaje v,lugar l WHERE v."+cbColumna.getValue().getValue()+" = l.idLugar AND (LOWER(l.ciudad) LIKE \""+'%'+tfBusqueda.getText()+'%'+"\" XOR LOWER(l.direccion) LIKE \""+'%'+tfBusqueda.getText()+'%'+"\" XOR l.nDireccion LIKE \""+'%'+tfBusqueda.getText()+'%'+"\")"));   
             }
             else{
                 recargarTabla(Database.consulta("SELECT * FROM viaje WHERE LOWER("+cbColumna.getValue().getValue()+") LIKE \""+'%'+tfBusqueda.getText()+'%'+"\""));   

@@ -19,8 +19,8 @@ public class FuncionesFile {
     
     /**
     * Añade una linea de texto a un archivo.
-     * @param path path del archivo
-     * @param texto String del texto a añadir
+    * @param path path del archivo
+    * @param texto String del texto a añadir
     */
     public static void aniadirStringArchivo(String path, String texto) {
         FileWriter fichero = null;
@@ -47,8 +47,8 @@ public class FuncionesFile {
 
     /**
     * Retorna la lina N de un archivo.
-     * @param i linea
-     * @param path path del archivo
+    * @param i linea
+    * @param path path del archivo
     * @return String linea de texto.
     */
     public static String leerLineaNumeroArchivo(int i, String path) {
@@ -72,16 +72,16 @@ public class FuncionesFile {
             }
         }
         catch(Exception e){
-                System.out.println("Mensaje: " + e.getMessage());
+            System.out.println("Mensaje: " + e.getMessage());
         }finally{
-                try{                    
-                        if( null != fr ){   
-                                br.close();
-                                fr.close();     
-                        }                  
-                }catch (Exception e2){ 
-                        e2.printStackTrace();
-                }
+            try{                    
+                if( null != fr ){   
+                    br.close();
+                    fr.close();     
+                }                  
+            }catch (Exception e2){ 
+                e2.printStackTrace();
+            }
         }
         return linea;
     }
@@ -113,7 +113,7 @@ public class FuncionesFile {
     
     /**
     * Retorna la cantidad de lineas de un archivo.
-     * @param path path del archivo
+    * @param path path del archivo
     * @return int cantidad de lineas
     */
     public static int getTamanio(String path) {
@@ -136,22 +136,22 @@ public class FuncionesFile {
             }
         }
         catch(Exception e){
-                System.out.println("Mensaje: " + e.getMessage());
+            System.out.println("Mensaje: " + e.getMessage());
         }finally{
-                try{                    
-                        if( null != fr ){   
-                                br.close();
-                                fr.close();     
-                        }                  
-                }catch (Exception e2){ 
-                        e2.printStackTrace();
-                }
+            try{                    
+                if( null != fr ){   
+                    br.close();
+                    fr.close();     
+                }                  
+            }catch (Exception e2){ 
+                e2.printStackTrace();
+            }
         }
         return count;
     }
     /**
     * Crea un directorio en el path especificado.
-     * @param path path del archivo
+    * @param path path del archivo
     * @return boolean true si fue exitoso
     */
     public static boolean crearDirectorio(String path) {
